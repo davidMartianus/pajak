@@ -1,0 +1,40 @@
+#img-small {
+  height: 4rem;
+  width: 4rem;
+}
+
+@media screen and (max-width: 1041px) {
+  #img-small {
+    display: inherit;
+  }
+
+  #img-big {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1042px) {
+  #img-small {
+    display: none;
+  }
+
+  #img-big {
+    display: inherit;
+  }
+}
+
+/* .active {
+  background: #dfe0e5;
+  overflow: hidden;
+  border-left: 2px solid #00f;
+  padding: 8px;
+} */
+
+.dash-icon {
+  margin-left: 3px;
+  margin-right: 3px !important;
+}
+
+#user-img {
+  background-color: #fff;
+}
