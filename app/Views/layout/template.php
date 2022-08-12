@@ -146,6 +146,13 @@
                             </a>
                         </li>
 
+                        <li class="has_sub dash-menu">
+                            <a href="/uploadKpp/index" class="waves-effect userSelectedMenu" title="uploadKpp">
+                                <i class="zmdi zmdi-lock-open dash-icon"></i>
+                                <span> Upload KPP </span>
+                            </a>
+                        </li>
+
                     </ul>
                     <div class="clearfix"></div>
                 </div>
@@ -247,7 +254,12 @@
             // $('.datepicker').datepicker();
 
             $('.tanggal').datepicker({
-                format: 'dd-mm-yyyy'
+                format: 'dd-mm-yyyy',
+                uiLibrary: 'bootstrap4',
+                autoclose: true,
+                todayHighlight: true,
+                orientation: "top auto",
+                disableTouchKeyboard: false
             });
         });
 
