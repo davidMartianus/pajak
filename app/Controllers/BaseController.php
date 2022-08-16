@@ -10,6 +10,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 use \App\Models\IbkModel; //insertion by david
+
 /**
  * Class BaseController
  *
@@ -50,5 +51,7 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         $this->ibkModel = new IbkModel;
+
+        $this->db = \Config\Database::connect();
     }
 }

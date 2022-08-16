@@ -83,6 +83,11 @@ class IbkDataModel extends Model
         $tbl_storage = $this->db->table($this->table);
         return $tbl_storage->countAllResults();
     }
+ 
+    // public function create($data)
+    // {
+    //     return $this->builder->insert($data);
+    // }
 
     public function getReffCode()
     {

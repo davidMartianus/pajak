@@ -17,12 +17,15 @@ class SearchIbk extends BaseController
 
     public function index()
     {
-        // $ibkList = new ibkModel;
-
         $data = [
             'title' => 'Pencarian IBK'
         ];
-        return view('pages/search_ibk', $data);
+
+        echo view('layout/template', $data);
+
+        echo view('pages/search_ibk');
+
+        echo view('layout/footer');
     }
 
     public function getData()
@@ -32,7 +35,7 @@ class SearchIbk extends BaseController
             $data =  [
                 'ibkLists' => $ibkList->findAll()
             ];
-            // dd($data);
+
             $msg = [
                 'data' => view('pages/list_ibk', $data)
             ];
@@ -48,45 +51,62 @@ class SearchIbk extends BaseController
         $request = Services::request();
         $ibkDataModel = new IbkDataModel($request);
 
-        if ($request->getMethod(true) == 'POST') :
-            $ibkLists = $ibkDataModel->getDataTable();
-            $ibkRow = [];
-            $no = $request->getPost("start");
-            foreach ($ibkLists as $ibkList) :
-                $row = array();
+        if ($this->request->isAJAX()) {
+            $ibkList = new ibkModel;
+            $data =  [
+                'ibkLists' => $ibkList->findAll()
+            ];
 
-                $row[] = ++$no;
-                // $row[] = $ibkList->id;
-                $row[] = $ibkList->reffcode;
-                $row[] = $ibkList->djp_no;
-                $row[] = $ibkList->djp_date;
-                $row[] = $ibkList->kpp_no;
-                $row[] = $ibkList->dispos_date;
-                $row[] = $ibkList->alamat1;
-                // $row[] = $ibkList->alamat2;
-                $row[] = $ibkList->kode_pos;
-                $row[] = $ibkList->check_date;
-                $row[] = $ibkList->sla;
-                $row[] = $ibkList->jenis_kp;
-                $row[] = $ibkList->kantor_pajak;
-                $row[] = $ibkList->petugas;
-                $row[] = $ibkList->surat_jwb_no;
-                $row[] = $ibkList->periode_from;
-                // $row[] = $ibkList->periode_to;
-                // $row[] = $ibkList->created_at;
-                // $row[] = $ibkList->changed_at;
-                $ibkRow[] = $row;
-            endforeach;
+            // $msg = [
+            //     'data' => view('pages/list_ibk', $data)
+            // ];
 
-            $output = array(
-                "draw" => $request->getPost('draw'),
-                "recordsTotal" => $ibkDataModel->count_all_data(),
-                "recordsFiltered" => $ibkDataModel->count_filtered_data(),
-                "data" => $ibkRow,
-            );
+            if ($request->getMethod(true) == 'POST') :
+                $ibkLists = $ibkDataModel->getDataTable();
+                $ibkRow = [];
+                $no = $request->getPost("start");
+                foreach ($ibkLists as $ibkList) :
+                    $row = array();
 
-            // $this->output->set_content_type('application/json')->set_output(json_encode($output));
-            echo json_encode($output);
-        endif;
+                    $concateAlamat = $ibkList->alamat1 . $ibkList->alamat2;
+                    $djp_date = date("d-m-Y", strtotime($ibkList->djp_date));
+                    $check_date = date("d-m-Y", strtotime($ibkList->check_date));
+                    $dispos_date = date("d-m-Y", strtotime($ibkList->dispos_date));
+                    $string_periode = explode('-', $ibkList->periode);
+                    $date1 = explode('/', $string_periode[0]);
+                    $date2 = explode('/', $string_periode[1]);
+                    $periode_from = $date1[1] . '-' . $date1[0] . '-' . $date1[2];
+                    $periode_to = $date2[1] . '-' . $date2[0] . '-' . $date2[2];
+                    $periode_date = $periode_from . ' s.d ' . $periode_to;
+
+                    $row[] = ++$no;
+                    $row[] = $ibkList->djp_no;
+                    $row[] = $djp_date;
+                    $row[] = $ibkList->kpp_no;
+                    $row[] = $dispos_date;
+                    $row[] = $concateAlamat;
+                    $row[] = $ibkList->kode_pos;
+                    $row[] = $check_date;
+                    $row[] = $ibkList->sla;
+                    $row[] = $ibkList->jenis_kp;
+                    $row[] = $ibkList->kantor_pajak;
+                    $row[] = $ibkList->petugas;
+                    $row[] = $ibkList->surat_jwb_no;
+                    $row[] = $periode_date;
+                    $ibkRow[] = $row;
+                endforeach;
+
+                $output = array(
+                    "draw" => $request->getPost('draw'),
+                    "recordsTotal" => $ibkDataModel->count_all_data(),
+                    "recordsFiltered" => $ibkDataModel->count_filtered_data(),
+                    "data" => $ibkRow,
+                );
+
+                echo json_encode($output);
+            endif;
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
     }
 }

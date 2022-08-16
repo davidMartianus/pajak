@@ -6,6 +6,10 @@
   margin-bottom: 20px;
 } */
 
+.select2 {
+  width: -webkit-fill-available !important;
+}
+
 .button.button-small {
   height: 30px;
   line-height: 30px;
