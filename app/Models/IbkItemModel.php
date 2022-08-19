@@ -11,6 +11,8 @@ class IbkItemModel extends Model
     protected $table = 'ibk_item';
     protected $primaryKey = 'id';
     protected $useTimeStamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 
     protected $allowedFields = [
         'djp_no', 'surat_pajak', 'surat_pajak_date', 'kantor_pajak', 'cif', 'nasabah', 'rekening', 'outlet',

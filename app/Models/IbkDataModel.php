@@ -9,13 +9,21 @@ use CodeIgniter\Model;
 class IbkDataModel extends Model
 {
     protected $table = 'ibk_header';
+    // protected $table_ibk_item = 'ibk_item';
     protected $primaryKey = 'id';
     protected $useTimeStamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 
     protected $allowedFields = [
         'reffcode', 'djp_no', 'djp_date', 'kpp_no', 'dispos_date', 'fiscal_year', 'alamat1', 'alamat2', 'kode_pos',
-        'check_date', 'sla', 'jenis_kp', 'kantor_pajak', 'petugas', 'surat_jwb_no', 'periode'
+        'check_date', 'sla', 'jenis_kp', 'kantor_pajak', 'petugas', 'surat_jwb_no', 'periode', 'created_at', 'updated_at'
     ];
+
+    // protected $allowedFields_item = [
+    //     'djp_no', 'surat_pajak', 'surat_pajak_date', 'kantor_pajak', 'cif', 'nasabah', 'rekening', 'outlet',
+    //     'nik', 'npwp', 'tempat_lahir', 'tgl_lahir', 'keterangan', 'add_keterangan', 'created_at', 'updated_at'
+    // ];
 
     protected $column_order = [null, null, 'djp_no', 'djp_date', 'kpp_no', 'dispos_date', 'alamat1', 'alamat2', 'kode_pos', 'check_date', 'sla', 'jenis_kp', 'kantor_pajak', 'petugas', 'surat_jwb_no', 'periode_from', 'periode_to', null, null];
     protected $column_search = ['djp_no'];
@@ -83,7 +91,7 @@ class IbkDataModel extends Model
         $tbl_storage = $this->db->table($this->table);
         return $tbl_storage->countAllResults();
     }
- 
+
     // public function create($data)
     // {
     //     return $this->builder->insert($data);

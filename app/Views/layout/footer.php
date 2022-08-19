@@ -39,7 +39,10 @@
             autoclose: true,
             // format: "dd-mm-yyyy",
             orientation: "top auto",
-            disableTouchKeyboard: false
+            disableTouchKeyboard: false,
+            beforeShow: function() {
+                $(".ui-datepicker").css('font-size', 10)
+            }
         });
     });
 

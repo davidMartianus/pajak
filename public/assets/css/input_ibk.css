@@ -2,6 +2,9 @@
   vertical-align: middle;
 }
 
+div.datepicker {
+  font-size: 12px !important;
+}
 /* .row {
   margin-bottom: 20px;
 } */

@@ -10,4 +10,6 @@ class IbkModel extends Model
     protected $table = 'ibk_header';
     protected $primaryKey = 'id';
     protected $useTimeStamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 }
