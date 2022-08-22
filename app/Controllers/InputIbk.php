@@ -21,7 +21,7 @@ class InputIbk extends BaseController
         $data = [
             'title' => 'Dashboard'
         ];
-        echo view('layout/template', $data);
+        echo view('layout/header', $data);
 
         echo view('pages/input_ibk');
 
@@ -87,29 +87,29 @@ class InputIbk extends BaseController
         // $created_at = date('Y-m-d H:i:s');
         $header = $this->request->getVar();
 
-        // if ($this->ibkDataModel->save([
-        //     'reffcode' => $this->request->getVar('reffcode'),
-        //     'djp_no' => $this->request->getVar('noSuratDjp'),
-        //     'djp_date' => $this->request->getVar('tglSuratDjp'),
-        //     'kpp_no' => $this->request->getVar('noSuratKpp'),
-        //     'dispos_date' => $this->request->getVar('tglSuratDispos'),
-        //     'fiscal_year' => $currentYear,
-        //     'alamat1' => $this->request->getVar('alamat1'),
-        //     'alamat2' => $this->request->getVar('alamat2'),
-        //     'kode_pos' => $this->request->getVar('kodepos'),
-        //     'check_date' => $this->request->getVar('tglPeriksa'),
-        //     'sla' => $this->request->getVar('sla'),
-        //     'jenis_kp' => $this->request->getVar('JnsKantorPjk'),
-        //     'kantor_pajak' => $this->request->getVar('kantorPjk'),
-        //     'petugas' => $this->request->getVar('petugas'),
-        //     'surat_jwb_no' => $this->request->getVar('nomorSuratJwb'),
-        //     'periode' => $this->request->getVar('daterange'),
-        //     'created_at' => $created_at,
-        // ]) == true) {
-        //     $message = array('status' => 1, 'message' => 'success');
-        // } else {
-        //     $message = array('status' => 0, 'message' => 'failed');
-        // }
+        if ($this->ibkDataModel->save([
+            'reffcode' => $this->request->getVar('reffcode'),
+            'djp_no' => $this->request->getVar('noSuratDjp'),
+            'djp_date' => $this->request->getVar('tglSuratDjp'),
+            'kpp_no' => $this->request->getVar('noSuratKpp'),
+            'dispos_date' => $this->request->getVar('tglSuratDispos'),
+            'fiscal_year' => $currentYear,
+            'alamat1' => $this->request->getVar('alamat1'),
+            'alamat2' => $this->request->getVar('alamat2'),
+            'kode_pos' => $this->request->getVar('kodepos'),
+            'check_date' => $this->request->getVar('tglPeriksa'),
+            'sla' => $this->request->getVar('sla'),
+            'jenis_kp' => $this->request->getVar('JnsKantorPjk'),
+            'kantor_pajak' => $this->request->getVar('kantorPjk'),
+            'petugas' => $this->request->getVar('petugas'),
+            'surat_jwb_no' => $this->request->getVar('nomorSuratJwb'),
+            'periode' => $this->request->getVar('daterange'),
+            'created_at' => $created_at,
+        ]) == true) {
+            $message = array('status' => 1, 'message' => 'success');
+        } else {
+            $message = array('status' => 0, 'message' => 'failed');
+        }
         $message = array('status' => 1, 'message' => 'success', 'header' => $header);
         echo json_encode($message);
     }
@@ -122,28 +122,28 @@ class InputIbk extends BaseController
 
         $item = $this->request->getVar();
 
-        // if ($this->ibkItemModel->save([
-        //     'djp_no' => $this->request->getVar('noSuratDjp'),
-        //     'surat_pajak' => $this->request->getVar('noSuratPjkTbl'),
-        //     'surat_pajak_date' => $this->request->getVar('tglSuratPjkTbl'),
-        //     'kantor_pajak' => $this->request->getVar('kantorPjkTbl'),
-        //     'cif' => '',
-        //     'nasabah' => $this->request->getVar('nasabahTbl'),
-        //     'rekening' => '',
-        //     'outlet' => $this->request->getVar('outletTbl'),
-        //     'nik' => $this->request->getVar('nikTbl'),
-        //     'npwp' => $this->request->getVar('npwpTbl'),
-        //     'tempat_lahir' => $this->request->getVar('tmptLahirTbl'),
-        //     'tgl_lahir' => $this->request->getVar('tglLahirTbl'),
-        //     'keterangan' => $this->request->getVar('keteranganTbl'),
-        //     'add_keterangan' => $this->request->getVar('addKetPjkTbl'),
-        //     'created_at' => $created_at,
-        //     'updated_at' => $created_at,
-        // ]) == true) {
-        //     $message = array('status' => 1, 'message' => 'success');
-        // } else {
-        //     $message = array('status' => 0, 'message' => 'failed');
-        // }
+        if ($this->ibkItemModel->save([
+            'djp_no' => $this->request->getVar('noSuratDjp'),
+            'surat_pajak' => $this->request->getVar('noSuratPjkTbl'),
+            'surat_pajak_date' => $this->request->getVar('tglSuratPjkTbl'),
+            'kantor_pajak' => $this->request->getVar('kantorPjkTbl'),
+            'cif' => '',
+            'nasabah' => $this->request->getVar('nasabahTbl'),
+            'rekening' => '',
+            'outlet' => $this->request->getVar('outletTbl'),
+            'nik' => $this->request->getVar('nikTbl'),
+            'npwp' => $this->request->getVar('npwpTbl'),
+            'tempat_lahir' => $this->request->getVar('tmptLahirTbl'),
+            'tgl_lahir' => $this->request->getVar('tglLahirTbl'),
+            'keterangan' => $this->request->getVar('keteranganTbl'),
+            'add_keterangan' => $this->request->getVar('addKetPjkTbl'),
+            'created_at' => $created_at,
+            'updated_at' => $created_at,
+        ]) == true) {
+            $message = array('status' => 1, 'message' => 'success');
+        } else {
+            $message = array('status' => 0, 'message' => 'failed');
+        }
         $message = array('status' => 1, 'message' => 'success', 'item' => $item);
         echo json_encode($message);
     }

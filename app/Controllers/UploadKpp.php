@@ -13,7 +13,14 @@ class UploadKpp extends BaseController
         $data = [
             'title' => 'Upload file KPP'
         ];
-        return view('pages/upload_kpp', $data);
+
+        echo view('layout/header', $data);
+
+        echo view('pages/upload_kpp');
+
+        echo view('layout/footer');
+
+        // return view('pages/upload_kpp', $data);
     }
 
     public function upload()

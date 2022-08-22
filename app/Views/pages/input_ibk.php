@@ -169,7 +169,7 @@
                     <div class="row">
                         <div class="col-lg">
                             <div class="form-group text-right m-b-0 text-center">
-                                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                <button class="btn btn-primary waves-effect waves-light" type="button">
                                     Print Surat DJP
                                 </button>
 
@@ -443,7 +443,10 @@
             url_item = "<?= base_url('/InputIbk/save_item'); ?>";
 
             var dataIbk = formHeader.serializeArray(); // convert form to array;
-            console.log(dataIbk);
+            var itemIbk = [];
+            var status_insert;
+
+            // console.log(dataIbk);
 
             // var dataTbl = document.querySelectorAll('#tbodyIbk tr');
             // var itemIbk = [{}];
@@ -469,7 +472,7 @@
             // addIbkArray(dataIbk, "item", itemIbk);
 
             // console.log(itemIbk);
-            var itemIbk = [];
+
             // addIbkArray(itemIbk, "noSuratPjkTbl", document.getElementById('noSuratPjkTbl').innerHTML);
             // addIbkArray(itemIbk, "tglSuratPjkTbl", document.getElementById('tglSuratPjkTbl').innerHTML);
             // addIbkArray(itemIbk, "kantorPjkTbl", document.getElementById('kantorPjkTbl').innerHTML);
@@ -509,9 +512,7 @@
                 data: formHeader.serialize(),
                 dataType: "JSON",
                 success: function(response) {
-                    // console.log(response);
                     if (response.status == 1) { //success
-                        console.log(response);
                         var dataTbl = document.querySelectorAll('#tbodyIbk tr');
 
                         for (let [index, tr] of dataTbl.entries()) {
@@ -529,10 +530,12 @@
                                     dataType: "JSON",
                                     success: function(response) {
                                         if (response.status == 1) {
-                                            showMessage('success', 'Tambah Data IBK', 'Data berhasil ditambahkan'); //show pop up message
-                                            console.log(response);
+                                            // status_insert = response.status;
+                                            // showMessage('success', 'Tambah Data IBK', 'Data berhasil ditambahkan'); //show pop up message
+                                            // console.log(response);
                                         } else {
-                                            showMessage('error', 'Tambah Data IBK', 'Data gagal ditambahkan'); //show pop up message
+                                            // status_insert = response.status;
+                                            // showMessage('error', 'Tambah Data IBK', 'Data gagal ditambahkan'); //show pop up message
                                         }
                                     },
                                     error: function() {
@@ -540,18 +543,15 @@
                                     }
                                 });
                             }
-                            // var td = tr.getElementsByTagName('td');
-                            // let td_array = Array.from(td); // convert HTMLCollection to an Array
+                        }
 
-                            // addIbkArray(itemIbk, document.getElementById('noSuratDjp').id, document.getElementById('noSuratDjp').value); //get DJP number from header
-
-                            // td_id = td_array.map(tag => tag.id); // get the id of each element
-                            // td_value = td_array.map(tag => tag.innerText); // get the text of each element
-                            // itemIbk.push(itemIbk, td_id, td_value);
-
-
+                        if (response.status == 1) {
+                            showMessage('success', 'Tambah Data IBK', 'Data berhasil ditambahkan'); //show pop up message
+                        } else if (response.status == 0) {
+                            showMessage('error', 'Tambah Data IBK', 'Data gagal ditambahkan'); //show pop up message
                         }
                     } else { //failed
+                        status_insert = response.status;
                         // looping to display mandatory field message
                         for (let i = 0; i < response.inputerror.length; i++) {
                             $('[name="' + response.inputerror[i] + '"]').addClass('is-invalid');
@@ -559,9 +559,6 @@
                             showMessage('error', 'Tambah Data IBK', 'Harap isi field mandatory'); //show pop up message
                         }
                     }
-                    // console.log(response.inputIbkTable);
-                    // redirect
-                    // window.location.href = "<?= site_url('/searchIbk/index'); ?>";
                 },
                 error: function() {
                     showMessage('error', 'Server header Gangguan', 'silahkan ulangi kembali'); //show pop up message
@@ -577,8 +574,12 @@
                 text: text,
                 showConfirmButton: true,
                 showCancelButton: false,
-                timer: 2000,
                 timerProgressBar: true
+            }).then(function() {
+                // redirect
+                if (icon == 'success') {
+                    window.location.href = "<?= site_url('/searchIbk/index'); ?>";
+                }
             });
         }
 
@@ -586,11 +587,12 @@
         function add(btnType) {
             if (btnType == 'tambah') {
                 formData[0].reset(); //clear form field every time Tambah Data button is pressed
+                saveData = 'tambah'; //store value to variable saveData for further use
+            } else {
+                saveData = 'edit'; //store value to variable saveData for further use
             }
             modal.modal('show'); //display modal
             modalTitle.text('Tambah Data'); //modal title
-
-            saveData = 'tambah'; //store value to variable saveData for further use
 
             btnSave.attr('disabled', false); //enable button
             btnSave.text('Simpan'); //text on button
@@ -609,12 +611,36 @@
             var tanggalLahir = $('input[name="tanggalLahir"').val();
             var keterangan = $('input[name="keterangan"').val();
             var addKeterangan = $('input[name="addKeterangan"').val();
+            // var btnType = $('input[name="actionType"').val();
 
-            tableData.DataTable().row.add([pajakNo, pajakDate, kantorPajak, nasabah, outlet, nik, npwp, tempatLahir, tanggalLahir, keterangan, addKeterangan,
-                '<button type="button" title="edit" class="btn waves-effect waves-light btn-warning btn-sm col-sm" onclick="add(\'edit\')" style="margin: 2px"><i class="zmdi zmdi-edit"></i></button>' +
-                '<button type="button" title="delete" class="btn waves-effect waves-light btn-danger btn-sm col-sm" onclick="deleteRow(event);" style="margin: 2px"><i class="zmdi zmdi-delete"></i></button>' +
-                '<button type="button" title="compare" class="btn waves-effect waves-light btn-success btn-sm col-sm" onclick="compare(event)" style="margin: 2px"><i class="zmdi zmdi-compare"></i></button>'
-            ]).draw(false);
+            if (saveData == 'tambah') {
+                // console.log('add');
+                tableData.DataTable().row.add([pajakNo, pajakDate, kantorPajak, nasabah, outlet, nik, npwp, tempatLahir, tanggalLahir, keterangan, addKeterangan,
+                    '<button type="button" title="edit" class="btn waves-effect waves-light btn-warning btn-sm col-sm" onclick="add(\'edit\')" style="margin: 2px"><i class="zmdi zmdi-edit"></i></button>' +
+                    '<button type="button" title="delete" class="btn waves-effect waves-light btn-danger btn-sm col-sm" onclick="deleteRow(event);" style="margin: 2px"><i class="zmdi zmdi-delete"></i></button>' +
+                    '<button type="button" title="compare" class="btn waves-effect waves-light btn-success btn-sm col-sm" onclick="compare(event)" style="margin: 2px"><i class="zmdi zmdi-compare"></i></button>'
+                ]).draw(false);
+            } else {
+                // console.log('edit');
+                // $(tableData.DataTable().row).edit();
+                var row = $(this).closest("tr");
+                // var tds = row.find("td").not(':first').not(':last');
+                var tds = row.find("td");
+                console.log(row);
+                console.log(pajakNo);
+
+                // document.getElementById
+                // $(tableData).DataTable().row($(row)).data([pajakNo, pajakDate, kantorPajak, nasabah, outlet, nik, npwp, tempatLahir, tanggalLahir, keterangan, addKeterangan]).draw(false);
+
+                // $.each(tds, function(i, el) {
+                //     console.log(el);
+                //     var txt = $(this).find('input[name="pajakNo').val();
+                //     $(this).html(txt);
+
+                //     //This is where I update the cell data with the new value
+                //     console.log(table.cell(this).data(txt));
+                // });
+            }
 
             modal.modal('hide'); //hide modal
         }
@@ -685,6 +711,7 @@
                 if (result.isConfirmed) {
                     // if button 'Ya, hapus data!' is pressed then call function deleteData()
                     var tr = $(e.target).closest('tr');
+
                     $(tableData).DataTable().row($(tr)).remove().draw(false);
                 }
             })
@@ -758,5 +785,9 @@
             document.getElementById('tanggalLahirCompare').value = document.getElementById('tglLahirTbl').innerHTML;
             document.getElementById('nikCompare').value = document.getElementById('nikTbl').innerHTML;
             document.getElementById('npwpCompare').value = document.getElementById('npwpTbl').innerHTML;
+        }
+
+        function generateSurat(tipe_surat) {
+            console.log(tipe_surat);
         }
     </script>

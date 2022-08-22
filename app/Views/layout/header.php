@@ -137,64 +137,43 @@
                 <div id="sidebar-menu">
                     <ul>
                         <li class="has_sub dash-menu active">
-                            <a href="/" class="waves-effect userSelectedMenu" title="dashboard">
+                            <a href="<?= base_url() . "/pages" ?>" class="waves-effect">
                                 <i class="zmdi zmdi-view-dashboard dash-icon"></i>
                                 <span> Dashboard </span>
                             </a>
                         </li>
-
                         <li class="has_sub dash-menu">
-                            <a href="/searchIbk/index" class="waves-effect userSelectedMenu" title="searchIbk">
-                                <i class="zmdi zmdi-search dash-icon"></i>
-                                <span> Pencarian IBK </span>
-                            </a>
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="zmdi zmdi-tv-list dash-icon"></i>
+                                <span> IBK </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="/searchIbk/index">Pencarian IBK</a></li>
+                            </ul>
                         </li>
-
                         <li class="has_sub dash-menu">
-                            <a href="#" class="waves-effect userSelectedMenu" title="block">
+                            <a href="javascript:void(0);" class="waves-effect">
                                 <i class="zmdi zmdi-assignment-alert dash-icon"></i>
-                                <span> Pengajuan Blokir </span>
-                            </a>
+                                <span> Blokir </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="<?= base_url() ?>#">Pengajuan Blokir</a></li>
+                                <li><a href="<?= base_url() ?>#">Pengajuan Cabut Blokir</a></li>
+                                <li><a href="<?= base_url() ?>#">Input Pemblokiran</a></li>
+                                <li><a href="<?= base_url() ?>#">Input Cabut Blokir</a></li>
+                                <li><a href="<?= base_url() ?>#">Validasi Pemblokiran</a></li>
+                                <li><a href="<?= base_url() ?>#">Validasi Cabut Blokir</a></li>
+                            </ul>
                         </li>
-
-                        <li class="has_sub dash-menu">
-                            <a href="#" class="waves-effect userSelectedMenu" title="ublock">
-                                <i class="zmdi zmdi-assignment-check dash-icon"></i>
-                                <span> Pengajuan Cabut Blokir </span>
-                            </a>
-                        </li>
-
-                        <li class="has_sub dash-menu">
-                            <a href="#" class="waves-effect userSelectedMenu" title="inputBlock">
-                                <i class="zmdi zmdi-lock-outline dash-icon"></i>
-                                <span> Input Pemblokiran </span>
-                            </a>
-                        </li>
-
-                        <li class="has_sub dash-menu">
-                            <a href="#" class="waves-effect userSelectedMenu" title="inputUnblock">
-                                <i class="zmdi zmdi-lock-open dash-icon"></i>
-                                <span> Input Cabut Blokir </span>
-                            </a>
-                        </li>
-
-                        <li class="has_sub dash-menu">
-                            <a href="/uploadKpp/index" class="waves-effect userSelectedMenu" title="uploadKpp">
-                                <i class="zmdi zmdi-lock-open dash-icon"></i>
-                                <span> Upload KPP </span>
-                            </a>
-                        </li>
-
                     </ul>
                     <div class="clearfix"></div>
                 </div>
                 <!-- Sidebar -->
                 <div class="clearfix"></div>
-
             </div>
-
         </div>
-        <!-- ========== Left Sidebar End ========== -->
+        <!-- Left Sidebar End -->
+
+
+
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->

@@ -21,7 +21,7 @@ class SearchIbk extends BaseController
             'title' => 'Pencarian IBK'
         ];
 
-        echo view('layout/template', $data);
+        echo view('layout/header', $data);
 
         echo view('pages/search_ibk');
 

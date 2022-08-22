@@ -1,6 +1,3 @@
-<?= $this->extend('layout/template'); ?>
-
-<?= $this->section('content'); ?>
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Card title</h5>
@@ -31,4 +28,3 @@
         </p>
     </div>
 </div>
-<?= $this->endSection(); ?>

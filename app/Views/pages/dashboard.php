@@ -1,7 +1,3 @@
-<?= $this->extend('layout/template'); ?>
-
-<?= $this->section('content'); ?>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12">
@@ -14,5 +10,3 @@
 </div>
 
 <h1>Dashboard</h1>
-
-<?= $this->endSection(); ?>
