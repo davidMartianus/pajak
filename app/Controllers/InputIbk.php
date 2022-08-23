@@ -81,7 +81,7 @@ class InputIbk extends BaseController
 
     public function save_header()
     {
-        // $this->_validation();
+        $this->_validation();
         $currentYear = date('Y');
         $created_at = (new \CodeIgniter\I18n\Time("now", "Asia/Jakarta", "de_DE"));
         // $created_at = date('Y-m-d H:i:s');
@@ -195,6 +195,12 @@ class InputIbk extends BaseController
         if ($this->request->getPost('tglSuratDispos') == '') {
             $data['inputerror'][] = 'tglSuratDispos';
             $data['error_string'][] = 'Tanggal Surat Disposisi wajib diisi';
+            $data['status'] = false;
+        }
+
+        if ($this->request->getPost('noSuratDjp') == '') {
+            $data['inputerror'][] = 'noSuratDjp';
+            $data['error_string'][] = 'Nomor Surat DJP wajib diisi';
             $data['status'] = false;
         }
 

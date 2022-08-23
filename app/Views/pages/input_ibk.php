@@ -88,7 +88,7 @@
                                         <label for="JnsKantorPjk" class="col-lg-4 col-form-label">Jenis Kantor Pajak<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
                                             <select class="custom-select mb-3" class="form-control" id="JnsKantorPjk" name="JnsKantorPjk" required>
-                                                <option selected>Pilih Jenis Kantor Pajak</option>
+                                                <option value="" disabled selected>--Pilih Jenis Kantor Pajak--</option>
                                                 <option value="Kanwil">Kanwil</option>
                                                 <option value="Pratama">Pratama</option>
                                                 <option value="Madya">Madya</option>
@@ -169,9 +169,13 @@
                     <div class="row">
                         <div class="col-lg">
                             <div class="form-group text-right m-b-0 text-center">
-                                <button class="btn btn-primary waves-effect waves-light" type="button">
+                                <!-- <button class="btn btn-primary waves-effect waves-light" type="button" id="printDjp">
                                     Print Surat DJP
-                                </button>
+                                </button> -->
+
+                                <a class="btn btn-primary waves-effect waves-light" type="button" id="printDjp" href="<?= base_url() . "/generate" ?>">
+                                    Print Surat DJP
+                                </a>
 
                                 <button class="btn btn-primary waves-effect waves-light" type="submit">
                                     Print Surat KPP
@@ -252,7 +256,7 @@
                             <!-- <input type="text" class="form-control" id="outlet" placeholder="Masukan Outlet" name="outlet"> -->
                             <div>
                                 <select class="custom-select mb-3" autocomplete="off" id="outlet" name="outlet">
-                                    <option value="" disabled selected>Pilih Jenis Outlet</option>
+                                    <option value="" disabled selected>--Pilih Outlet--</option>
                                     <option value="KC">KC</option>
                                     <option value="KCP">KCP</option>
                                     <option value="Kankas">Kankas</option>
@@ -405,6 +409,18 @@
             //         "target": [-1],
             //         "orderable": false
             //     }]
+            // });
+
+            // $("#printDjp").click(function() {
+            //     $.ajax({
+            //         'url': 'GenerateSurat/printSuratDjp', //URL of the request
+            //         'type': 'POST', //POST method
+            //         'success': function() { //execute when successful
+            //             console.log("masuk ajax")
+            //             // btnAdd.attr('disabled', 'true'); //disable the button
+            //             // btnAdd.val('sending ...'); //change the button text value
+            //         }
+            //     });
             // });
 
             $('#inputIbkTable').DataTable({
@@ -621,13 +637,56 @@
                     '<button type="button" title="compare" class="btn waves-effect waves-light btn-success btn-sm col-sm" onclick="compare(event)" style="margin: 2px"><i class="zmdi zmdi-compare"></i></button>'
                 ]).draw(false);
             } else {
+                var dataTbl = document.querySelectorAll('#tbodyIbk tr');
+                for (let [index, tr] of dataTbl.entries()) {
+                    console.log(tr);
+                    for (let j = 0; j < tr.childNodes.length - 1; j++) {
+                        // console.log(tr.childNodes[j].id);
+                        var td_id = tr.childNodes[j].id;
+                        if (td_id == 'noSuratPjkTbl') {
+                            tr.childNodes[j].innerHTML = pajakNo;
+                        }
+
+                        if (td_id == 'tglSuratPjkTbl') {
+                            tr.childNodes[j].innerHTML = pajakDate;
+                        }
+
+                        if (td_id == 'kantorPjkTbl') {
+                            tr.childNodes[j].innerHTML = kantorPajak;
+                        }
+
+                        if (td_id == 'nasabahTbl') {
+                            tr.childNodes[j].innerHTML = nasabah;
+                        }
+
+                        if (td_id == 'nikTbl') {
+                            tr.childNodes[j].innerHTML = nik;
+                        }
+
+                        if (td_id == 'npwpTbl') {
+                            tr.childNodes[j].innerHTML = npwp;
+                        }
+
+                        if (td_id == 'tmptLahirTbl') {
+                            tr.childNodes[j].innerHTML = tempatLahir;
+                        }
+
+                        if (td_id == 'tglLahirTbl') {
+                            tr.childNodes[j].innerHTML = tanggalLahir;
+                        }
+
+                        if (td_id == 'addKetPjkTbl') {
+                            tr.childNodes[j].innerHTML = addKeterangan;
+                        }
+                    }
+                }
                 // console.log('edit');
                 // $(tableData.DataTable().row).edit();
-                var row = $(this).closest("tr");
+                // var row = $(this).closest("tr");
                 // var tds = row.find("td").not(':first').not(':last');
-                var tds = row.find("td");
-                console.log(row);
-                console.log(pajakNo);
+                // var tds = row.find("td");
+                // console.log(row);
+                // console.log(pajakNo);
 
                 // document.getElementById
                 // $(tableData).DataTable().row($(row)).data([pajakNo, pajakDate, kantorPajak, nasabah, outlet, nik, npwp, tempatLahir, tanggalLahir, keterangan, addKeterangan]).draw(false);
@@ -771,7 +830,40 @@
 
         // function to compare data
         function compare(e) {
+            var nasabahTbl;
+            var tmptLahirTbl;
+            var tglLahirTbl;
+            var nikTbl;
+            var npwpTbl;
+
             var tr = $(e.target).closest('tr');
+            var childLen = tr[0].childNodes.length;
+            // console.log(tr[0].childNodes);
+            for (let i = 0; i < childLen - 1; i++) {
+                if (tr[0].childNodes[i].id == 'nasabahTbl') {
+                    var nasabahTbl = tr[0].childNodes[i].innerHTML;
+                }
+
+                if (tr[0].childNodes[i].id == 'tmptLahirTbl') {
+                    var tmptLahirTbl = tr[0].childNodes[i].innerHTML;
+                }
+
+                if (tr[0].childNodes[i].id == 'tglLahirTbl') {
+                    var tglLahirTbl = tr[0].childNodes[i].innerHTML;
+                }
+
+                if (tr[0].childNodes[i].id == 'nikTbl') {
+                    var nikTbl = tr[0].childNodes[i].innerHTML;
+                }
+
+                if (tr[0].childNodes[i].id == 'npwpTbl') {
+                    var npwpTbl = tr[0].childNodes[i].innerHTML;
+                }
+            }
+            // for (tr of trs) {
+            //     console.log(tr);
+            // }
+
             // console.log(tr);
             // console.log(document.getElementById('noSuratPjkTbl').innerHTML);
             // document.getElementById('nasabaCompare').innerHTML = document.getElementById('noSuratPjkTbl').innerHTML;
@@ -780,14 +872,40 @@
             modalCompare.modal('show'); //display modal
             modalTitle.text('Compare Data'); //modal title
 
-            document.getElementById('nasabahCompare').value = document.getElementById('nasabahTbl').innerHTML;
-            document.getElementById('tempatLahirCompare').value = document.getElementById('tmptLahirTbl').innerHTML;
-            document.getElementById('tanggalLahirCompare').value = document.getElementById('tglLahirTbl').innerHTML;
-            document.getElementById('nikCompare').value = document.getElementById('nikTbl').innerHTML;
-            document.getElementById('npwpCompare').value = document.getElementById('npwpTbl').innerHTML;
+            // document.getElementById('nasabahCompare').value = document.getElementById('nasabahTbl').innerHTML;
+            // document.getElementById('tempatLahirCompare').value = document.getElementById('tmptLahirTbl').innerHTML;
+            // document.getElementById('tanggalLahirCompare').value = document.getElementById('tglLahirTbl').innerHTML;
+            // document.getElementById('nikCompare').value = document.getElementById('nikTbl').innerHTML;
+            // document.getElementById('npwpCompare').value = document.getElementById('npwpTbl').innerHTML;
+
+            document.getElementById('nasabahCompare').value = nasabahTbl;
+            document.getElementById('tempatLahirCompare').value = tmptLahirTbl;
+            document.getElementById('tanggalLahirCompare').value = tglLahirTbl;
+            document.getElementById('nikCompare').value = nikTbl;
+            document.getElementById('npwpCompare').value = npwpTbl;
         }
 
         function generateSurat(tipe_surat) {
             console.log(tipe_surat);
+            url_suratDjp = "<?= base_url('/GenerateSurat/printSuratDjp'); ?>";
+            $.ajax({
+                type: "POST",
+                url: url_suratDjp,
+                // data: $.param(itemIbk),
+                // dataType: "JSON",
+                success: function(response) {
+                    if (response.status == 1) {
+                        // status_insert = response.status;
+                        // showMessage('success', 'Tambah Data IBK', 'Data berhasil ditambahkan'); //show pop up message
+                        // console.log(response);
+                    } else {
+                        // status_insert = response.status;
+                        // showMessage('error', 'Tambah Data IBK', 'Data gagal ditambahkan'); //show pop up message
+                    }
+                },
+                error: function() {
+                    showMessage('error', 'Server Gangguan', 'silahkan ulangi kembali'); //show pop up message
+                }
+            });
         }
     </script>

@@ -104,7 +104,7 @@
         $('#kantorPjk').select2({
             minimumInputLength: 3,
             allowClear: true,
-            placeholder: 'Pilih Kantor Pajak',
+            placeholder: '--Pilih Kantor Pajak--',
             ajax: {
                 dataType: 'json',
                 url: "<?= site_url('InputIbk/getKantorPajak') ?>",

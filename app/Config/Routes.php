@@ -39,6 +39,8 @@ $routes->setAutoRoute(true);
 
 $routes->get('/', 'Pages::index');
 
+$routes->get('/generate', 'GenerateSurat::printSuratDjp');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
