@@ -106,11 +106,11 @@ class InputIbk extends BaseController
             'periode' => $this->request->getVar('daterange'),
             'created_at' => $created_at,
         ]) == true) {
-            $message = array('status' => 1, 'message' => 'success');
+            $message = array('status' => 1, 'message' => 'success', 'header' => $header);
         } else {
-            $message = array('status' => 0, 'message' => 'failed');
+            $message = array('status' => 0, 'message' => 'failed', 'header' => $header);
         }
-        $message = array('status' => 1, 'message' => 'success', 'header' => $header);
+        // $message = array('status' => 1, 'message' => 'success', 'header' => $header);
         echo json_encode($message);
     }
 
@@ -140,11 +140,11 @@ class InputIbk extends BaseController
             'created_at' => $created_at,
             'updated_at' => $created_at,
         ]) == true) {
-            $message = array('status' => 1, 'message' => 'success');
+            $message = array('status' => 1, 'message' => 'success', 'item' => $item);
         } else {
-            $message = array('status' => 0, 'message' => 'failed');
+            $message = array('status' => 0, 'message' => 'failed', 'item' => $item);
         }
-        $message = array('status' => 1, 'message' => 'success', 'item' => $item);
+        // $message = array('status' => 1, 'message' => 'success', 'item' => $item);
         echo json_encode($message);
     }
 

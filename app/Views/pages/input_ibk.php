@@ -169,23 +169,23 @@
                     <div class="row">
                         <div class="col-lg">
                             <div class="form-group text-right m-b-0 text-center">
-                                <!-- <button class="btn btn-primary waves-effect waves-light" type="button" id="printDjp">
-                                    Print Surat DJP
-                                </button> -->
+                                <button class="btn btn-primary waves-effect waves-light" type="button" id="printDjp" onclick="generateSurat('djp')">
+                                    Print Surat
+                                </button>
 
-                                <a class="btn btn-primary waves-effect waves-light" type="button" id="printDjp" href="<?= base_url() . "/generate" ?>">
-                                    Print Surat DJP
-                                </a>
+                                <!-- <a class="btn btn-primary waves-effect waves-light" type="button" id="printDjp" href="<?= base_url() . "/generate" ?>">
+                                    Print Surat DJP POST
+                                </a> -->
 
-                                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                <button class="btn btn-primary waves-effect waves-light" type="submit" id="printKpp" onclick="generateSurat('kpp')">
                                     Print Surat KPP
                                 </button>
 
-                                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                <button class="btn btn-primary waves-effect waves-light" type="submit" id="printDirektorat" onclick="generateSurat('direktorat')">
                                     Print Surat Direktorat
                                 </button>
 
-                                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                <button class="btn btn-primary waves-effect waves-light" type="submit" id="printLampiran" onclick="generateSurat('lampiran')">
                                     Print Lampiran
                                 </button>
                             </div>
@@ -886,25 +886,35 @@
         }
 
         function generateSurat(tipe_surat) {
-            console.log(tipe_surat);
-            url_suratDjp = "<?= base_url('/GenerateSurat/printSuratDjp'); ?>";
+            if (tipe_surat == 'djp') {
+                var url_print = "<?= base_url('/GenerateSurat/printSuratDjp'); ?>";
+            } else if (tipe_surat == 'kpp') {
+                var url_print = "<?= base_url('/GenerateSurat/printSuratKpp'); ?>";
+            } else if (tipe_surat == 'direktorat') {
+                var url_print = "<?= base_url('/GenerateSurat/printSuratDirektorat'); ?>";
+            } else if (tipe_surat == 'lampiran') {
+                var url_print = "<?= base_url('/GenerateSurat/printSuratLampiran'); ?>";
+            }
+
+            // location.href = url_suratDjp;
+
             $.ajax({
-                type: "POST",
-                url: url_suratDjp,
-                // data: $.param(itemIbk),
-                // dataType: "JSON",
+                type: 'POST',
+                url: url_print,
+                data: formHeader.serialize(),
+                dataType: 'json',
                 success: function(response) {
-                    if (response.status == 1) {
-                        // status_insert = response.status;
-                        // showMessage('success', 'Tambah Data IBK', 'Data berhasil ditambahkan'); //show pop up message
-                        // console.log(response);
-                    } else {
-                        // status_insert = response.status;
-                        // showMessage('error', 'Tambah Data IBK', 'Data gagal ditambahkan'); //show pop up message
-                    }
+                    var $a = $("<a>");
+                    $a.attr("href", response.file);
+                    $("body").append($a);
+                    $a.attr("download", response.fileName);
+                    $a[0].click();
+                    $a.remove();
                 },
-                error: function() {
-                    showMessage('error', 'Server Gangguan', 'silahkan ulangi kembali'); //show pop up message
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                        thrownError + "\n" + ajaxOptions);
+                    // showMessage('error', thrownError, 'silahkan ulangi kembali'); //show pop up message
                 }
             });
         }
