@@ -25,8 +25,11 @@ class IbkDataModel extends Model
     //     'nik', 'npwp', 'tempat_lahir', 'tgl_lahir', 'keterangan', 'add_keterangan', 'created_at', 'updated_at'
     // ];
 
-    protected $column_order = [null, null, 'djp_no', 'djp_date', 'kpp_no', 'dispos_date', 'alamat1', 'alamat2', 'kode_pos', 'check_date', 'sla', 'jenis_kp', 'kantor_pajak', 'petugas', 'surat_jwb_no', 'periode_from', 'periode_to', null, null];
-    protected $column_search = ['djp_no'];
+    // protected $column_order = ['id', 'reffcode', 'djp_no', 'djp_date', 'kpp_no', 'dispos_date', 'fiscal_year', 'alamat1', 'alamat2', 'kode_pos', 'check_date', 'sla', 'jenis_kp', 'kantor_pajak', 'petugas', 'surat_jwb_no', 'periode', 'created_at', 'updated_at'];
+    protected $column_order = [null, 'reffcode', 'djp_no', 'djp_date', 'kpp_no', 'dispos_date', 'fiscal_year', null, null, 'kode_pos', 'check_date', 'sla', 'jenis_kp', 'kantor_pajak', 'petugas', 'surat_jwb_no', 'periode', null, null];
+    // protected $column_order = ['djp_no'];
+    // protected $column_search = ['djp_no'];
+    protected $column_search = ['djp_no', 'djp_date', 'kpp_no', 'dispos_date', 'kode_pos', 'check_date', 'sla', 'jenis_kp', 'kantor_pajak', 'petugas', 'surat_jwb_no', 'periode'];
     protected $order = ['djp_no' => 'asc'];
     protected $request;
     protected $db;
@@ -35,12 +38,13 @@ class IbkDataModel extends Model
     public $builder;
 
     function __construct(IncomingRequest $request)
+    // function __construct()
     {
         parent::__construct();
         $this->db = db_connect();
         $this->request = $request;
 
-        $this->builder = $this->db->table($this->table);
+        // $this->builder = $this->db->table($this->table);
 
         $this->dt = $this->db->table($this->table);
     }
@@ -62,6 +66,22 @@ class IbkDataModel extends Model
             }
             $i++;
         }
+
+        // $this->builder = $this->db->table('ibk_header');
+        // if (isset($this->request->getPost('search')['value'])) {
+        //     $this->dt->like('djp_no', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('djp_date', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('kpp_no', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('dispos_date', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('kode_pos', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('check_date', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('sla', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('jenis_kp', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('kantor_pajak', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('petugas', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('surat_jwb_no', $this->request->getPost('search')['value']);
+        //     $this->dt->orLike('periode', $this->request->getPost('search')['value']);
+        // }
 
         if ($this->request->getPost('order')) {
             $this->dt->orderBy($this->column_order[$this->request->getPost('order')['0']['column']], $this->request->getPost('order')['0']['dir']);
@@ -101,8 +121,20 @@ class IbkDataModel extends Model
     {
         $currentYear = date('Y');
 
-        $this->builder->selectMax('reffcode')->where('fiscal_year', $currentYear);
-        $query = $this->builder->get();
+        // $this->builder->selectMax('reffcode')->where('fiscal_year', $currentYear);
+        // $query = $this->builder->get();
+
+        $this->dt->selectMax('reffcode')->where('fiscal_year', $currentYear);
+        $query = $this->dt->get();
+        return $query->getResult();
+    }
+
+    public function getDjp($djp, $year)
+    {
+        // $this->dt->selectMax('todays_date')->where('djp_no', $djp)->where('fiscal_year', $year);
+        $this->dt->select('djp_no')->where('djp_no', $djp);
+        $query = $this->dt->get();
+
         return $query->getResult();
     }
 }

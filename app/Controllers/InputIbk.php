@@ -45,7 +45,8 @@ class InputIbk extends BaseController
         $request = Services::request();
         $ibkItemModel = new IbkItemModel($request);
 
-        if ($request->getMethod(true) == 'POST') :
+        // if ($request->getMethod(true) == 'POST') :
+        if ($this->$request->getMethod() == 'POST') :
             $ibkItems = $ibkItemModel->getDataTable();
             $ibkRow = [];
             $no = $request->getPost("start");
@@ -72,7 +73,7 @@ class InputIbk extends BaseController
                 "draw" => $request->getPost('draw'),
                 "recordsTotal" => $ibkItemModel->count_all_data(),
                 "recordsFiltered" => $ibkItemModel->count_filtered_data(),
-                "data" => $ibkRow,
+                "data" => $ibkRow
             );
 
             echo json_encode($output);
@@ -83,8 +84,8 @@ class InputIbk extends BaseController
     {
         $this->_validation();
         $currentYear = date('Y');
-        $created_at = (new \CodeIgniter\I18n\Time("now", "Asia/Jakarta", "de_DE"));
-        // $created_at = date('Y-m-d H:i:s');
+        $created_at = (new \CodeIgniter\I18n\Time("now", "Asia/Jakarta", "id_ID"));
+
         $header = $this->request->getVar();
 
         if ($this->ibkDataModel->save([
@@ -110,7 +111,6 @@ class InputIbk extends BaseController
         } else {
             $message = array('status' => 0, 'message' => 'failed', 'header' => $header);
         }
-        // $message = array('status' => 1, 'message' => 'success', 'header' => $header);
         echo json_encode($message);
     }
 
@@ -144,7 +144,6 @@ class InputIbk extends BaseController
         } else {
             $message = array('status' => 0, 'message' => 'failed', 'item' => $item);
         }
-        // $message = array('status' => 1, 'message' => 'success', 'item' => $item);
         echo json_encode($message);
     }
 
@@ -179,12 +178,38 @@ class InputIbk extends BaseController
         }
     }
 
+    //function to check djp number on current year already exist on db table or not
+    public function _validationDjp()
+    {
+        $request = Services::request();
+        $ibkDataModel = new IbkDataModel($request);
+
+        $currentYear = date('Y');
+        $djpExist = $ibkDataModel->getDjp($this->request->getPost('noSuratDjp'), $currentYear);
+        if ($djpExist) {
+            $data['inputerror'][] = 'noSuratDjp';
+            $data['error_string'][] = 'Nomor Surat DJP ' . $this->request->getPost('noSuratDjp') . ' tahun ' . $currentYear . ' sudah terdaftar';
+            $data['status'] = false;
+            echo json_encode($data);
+            exit();
+        }
+    }
+
     public function _validation()
     {
         $data = array();
         $data['error_string'] = array();
         $data['inputerror'] = array();
         $data['status'] = true;
+
+        if ($this->request->getPost('noSuratDjp') == '') {
+            $data['inputerror'][] = 'noSuratDjp';
+            $data['error_string'][] = 'Nomor Surat DJP wajib diisi';
+            $data['status'] = false;
+        } else {
+            //check djp number on current year already exist on db table or not
+            $this->_validationDjp();
+        }
 
         if ($this->request->getPost('tglSuratDjp') == '') {
             $data['inputerror'][] = 'tglSuratDjp';
@@ -195,12 +220,6 @@ class InputIbk extends BaseController
         if ($this->request->getPost('tglSuratDispos') == '') {
             $data['inputerror'][] = 'tglSuratDispos';
             $data['error_string'][] = 'Tanggal Surat Disposisi wajib diisi';
-            $data['status'] = false;
-        }
-
-        if ($this->request->getPost('noSuratDjp') == '') {
-            $data['inputerror'][] = 'noSuratDjp';
-            $data['error_string'][] = 'Nomor Surat DJP wajib diisi';
             $data['status'] = false;
         }
 

@@ -20,7 +20,8 @@ class IbkItemModel extends Model
     ];
 
     protected $column_order = [
-        'djp_no', 'surat_pajak', 'surat_pajak_date', 'kantor_pajak', 'cif', 'nasabah', 'rekening', 'outlet',
+        'djp_no',
+        'surat_pajak', 'surat_pajak_date', 'kantor_pajak', 'cif', 'nasabah', 'rekening', 'outlet',
         'nik', 'npwp', 'tempat_lahir', 'tgl_lahir', 'keterangan', 'add_keterangan'
     ];
     protected $column_search = ['surat_pajak'];
@@ -39,7 +40,8 @@ class IbkItemModel extends Model
 
         $this->builder = $this->db->table($this->table);
 
-        $this->dt = $this->db->table($this->table);
+        // $this->dt = $this->db->table($this->table);
+        $this->dt = $this->db->table($this->table)->where(['djp_no', 'DJP1']);
     }
 
     private function _get_datatables_query()
@@ -59,6 +61,15 @@ class IbkItemModel extends Model
             }
             $i++;
         }
+
+        // get data from table karyawan yg sudah didefine dalam variable 'table'
+        // $this->db->table($table);
+        // if (isset($this->request->getPost('search')['value'])) {
+        //     $this->dt->like('djp_no', $this->request->getPost('search')['value']);
+        //     // $this->dt->or_like('nama_belakang',$this->request->getPost('search')['value']);
+        //     // $this->dt->or_like('alamat', $this->request->getPost('search')['value']);
+        //     // $this->dt->or_like('no_hp', $this->request->getPost('search')['value']);
+        // }
 
         if ($this->request->getPost('order')) {
             $this->dt->orderBy($this->column_order[$this->request->getPost('order')['0']['column']], $this->request->getPost('order')['0']['dir']);

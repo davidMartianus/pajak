@@ -5,38 +5,101 @@ namespace App\Controllers;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use \PhpOffice\PhpWord\TemplateProcessor;
+use App\Models\IbkSuratModel;
 
 class GenerateSurat extends BaseController
 {
-    public function printSuratDjp()
+    public function __construct()
     {
-        // ob_start();
-        $header = $this->request->getVar();
+        $this->ibkSuratModel = new IbkSuratModel();
+    }
+
+    public function printSuratIbk()
+    {
+        $ibkSuratModel = new IbkSuratModel();
+        $dataSurat = $this->request->getVar();
+
+        if ($dataSurat['dataStatus'] === 'new') {
+            $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
+        } else {
+            $suratDate[] = $ibkSuratModel->getSuratDate($dataSurat['tipeSurat'], $dataSurat['noSuratDjp']);
+            $todaysdate = $this->tanggal_indonesia($suratDate);
+        }
 
         $phpWord = new PhpWord();
-        $templatedjp = new TemplateProcessor('template_djp.docx');
+        $fileTemplate = 'template_' . $this->request->getVar('tipeSurat') . '.docx';
+        // $pathTemplate = '/assets/temp_doc/' . $filename;
+        $templatedjp = new TemplateProcessor($fileTemplate);
 
         $section = $phpWord->addSection();
 
         // $section = $phpWord->loadTemplate('template_djp.docx');
 
-        $templatedjp->setValues([
-            // $section->setValues([
-            'reffcode' => '001',
-            'todaysmonth' => date('m'),
-            'todaysyear' => date('Y')
-        ]);
+        if ($dataSurat['tipeSurat'] == 'lampiran') {
+            $templatedjp->setValues([
+                'reffcode' => $this->request->getVar('reffcode'),
+                'todaysmonth' => date('m'),
+                'todaysyear' => date('Y'),
+            ]);
+
+            $values = [];
+            for ($i = 0; $i < $dataSurat['jumlahRow']; $i++) {
+                $noSuratPjkTbl = 'noSuratPjkTbl' . $i;
+                $tglSuratPjkTbl = 'tglSuratPjkTbl' . $i;
+                $kantorPjkTbl = 'kantorPjkTbl' . $i;
+                $nasabahTbl = 'nasabahTbl' . $i;
+                $outletTbl = 'outletTbl' . $i;
+                $keteranganTbl = 'keteranganTbl' . $i;
+
+                $values[] = array(
+                    "no" => $i + 1,
+                    "noSuratPajak" => $dataSurat[$noSuratPjkTbl],
+                    "tglSuratPajak" => $dataSurat[$tglSuratPjkTbl],
+                    "kantorPajak" => $dataSurat[$kantorPjkTbl],
+                    "nasabah" => $dataSurat[$nasabahTbl],
+                    "outlet" => $dataSurat[$outletTbl],
+                    "keterangan" => $dataSurat[$keteranganTbl]
+                );
+            }
+            $templatedjp->cloneRowAndSetValues('no', $values);
+        } else {
+            // need to check if the data already exist in db table
+            // if ($dataSurat['dataStatus'] === 'new') {
+            //     $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
+            // } else {
+            //     $suratDate = $ibkSuratModel->getSuratDate($dataSurat['tipeSurat'], $dataSurat['noSuratDjp']);
+            //     $todaysdate = $this->tanggal_indonesia($suratDate);
+            // }
+
+            // $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
+
+            $templatedjp->setValues([
+                'reffcode' => $this->request->getVar('reffcode'),
+                'todaysmonth' => date('m'),
+                'todaysyear' => date('Y'),
+                'todaysdate' => $todaysdate, //e.g 10 March, 2022
+                'alamat1' => $this->request->getVar('alamat1'),
+                'alamat2' => $this->request->getVar('alamat2'),
+                'kodepos' => $this->request->getVar('kodepos'),
+                'kantorDjpHeader' => $this->request->getVar('kantorPjk'),
+                'noSuratDjp' => $this->request->getVar('noSuratDjp'),
+                'tglSuratDjp' => $this->request->getVar('tglSuratDjp'),
+                'noSuratKpp' => $this->request->getVar('noSuratKpp'),
+                'tglPemeriksaan' => $this->request->getVar('tglPeriksa'),
+                'kantorPajakItem' => $this->request->getVar('kantorPjkTbl'),
+                'depthead1' => 'Dept Head 1 masih hardcode',
+                'depthead2' => 'Dept Head 2 masih hardcode'
+            ]);
+        }
 
         $section->addText('Hello World !');
         $writer = new Word2007($phpWord);
-        $filename = date('Y-m-d H:i:s') . '.docx';
+        $filename = 'Surat ' . strtoupper($this->request->getVar('tipeSurat')) . ' ' . 'DJP_' . strtoupper($this->request->getVar('noSuratDjp')) . '_' . date('Y-m-d H:i:s') . '.docx';
 
-        // $templatedjp = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        // ob_end_clean();
-
+        // setHeaderContentSurat($filename);
         header('Content-Type: application/msword');
         header('Content-Disposition: attachment; filename=' . $filename);
-        // header('Cache-Control: max-age=0');
+
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
@@ -48,11 +111,68 @@ class GenerateSurat extends BaseController
         $docFile = ob_get_contents();
         ob_end_clean();
 
-
         $response = array(
             'file' => "data:application/vnd.ms-word;base64," . base64_encode($docFile),
-            'op' => 'ok', 'fileName' => $filename
+            'op' => 'ok', 'fileName' => $filename, 'data' => $todaysdate
         );
+        die(json_encode($response));
+    }
+
+    public function tanggal_indonesia($tanggal)
+    {
+        $bulan = array(
+            1 =>       'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+
+        $var = explode('-', $tanggal);
+
+        return $var[2] . ' ' . $bulan[(int)$var[1]] . ' ' . $var[0];
+        /*
+        keterangan:
+        // var 0 = tanggal
+        // var 1 = bulan
+        // var 2 = tahun
+        */
+    }
+
+    public function saveSuratLog()
+    {
+        $printed_at = date(new \CodeIgniter\I18n\Time("now", "Asia/Jakarta", "de_DE"));
+        $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
+        $dataSurat = $this->request->getVar();
+
+        // save data
+        if ($this->ibkSuratModel->save([
+            'jenis_surat' => $this->request->getVar('tipeSurat'),
+            'no_surat_djp' => $this->request->getVar('noSuratDjp'),
+
+            'printed_at' => $printed_at,
+            'todays_year' => date('Y'),
+            'todays_month' => date('m'),
+            'todays_date' => $todaysdate, //e.g 10 March, 2022
+            'depthead1' => 'depthead1 harcode',
+            'depthead2' => 'depthead2 harcode'
+        ]) == true) {
+            $response = array(
+                'status' => 'saved', 'data' => $dataSurat
+            );
+        } else {
+            $response = array(
+                'status' => 'failed', 'data' => $dataSurat
+            );
+        }
+
         die(json_encode($response));
     }
 }

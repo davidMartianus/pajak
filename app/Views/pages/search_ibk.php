@@ -4,7 +4,7 @@
             <div class="page-title-box">
                 <h4 class="page-title float-left" id="titlePage">Pencarian IBK</h4>
                 <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="/searchIbk/index">Pencarian IBK</a></li>
+                    <li class="breadcrumb-item"><a href="/ibk">Pencarian IBK</a></li>
                     <li class="breadcrumb-item active">List IBK</li>
                 </ol>
                 <div class="clearfix"></div>
@@ -15,7 +15,7 @@
     <!-- Begin insertion for display Table -->
     <div class="card">
         <div class="card-body">
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModalCenter" onclick="location.href='<?php echo base_url(); ?>/InputIbk/index'">
+            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModalCenter" onclick="location.href='<?php echo base_url(); ?>/inputIbk'">
                 Tambah Data
             </button>
             <p class="card-text viewdata">
@@ -37,6 +37,7 @@
                         <th>Petugas</th>
                         <th>No. Surat Jawaban</th>
                         <th>Periode</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
@@ -65,15 +66,26 @@
             "order": [],
             "ajax": {
                 "url": "<?= base_url('SearchIbk/listIbk'); ?>",
-                "type": "POST"
+                "type": "POST",
+                dataFilter: function(response) {
+                    // this to see what exactly is being sent back
+                    console.log(response);
+                    return response
+                },
+                // error: function(response) {
+                //     // to see what the error is
+                //     console.log(response);
+                //     return response
+                //     console.log(response.y);
+                // }
             },
             columnDefs: [{
-                "target": [0],
+                "target": [],
                 "orderable": false
             }, ]
         });
 
-        dataIbk();
+        // dataIbk();
     });
 
     function dataIbk() {

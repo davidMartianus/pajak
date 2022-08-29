@@ -38,7 +38,9 @@ $routes->setAutoRoute(true);
 // $routes->get('/', 'Home::index');
 
 $routes->get('/', 'Pages::index');
-
+$routes->get('/ibk', 'SearchIbk::index');
+$routes->get('/ibk/detail/(:segment)', 'SearchIbk::detailIbk/$1');
+$routes->get('/inputIbk', 'InputIbk::index');
 $routes->get('/generate', 'GenerateSurat::printSuratDjp');
 
 /*

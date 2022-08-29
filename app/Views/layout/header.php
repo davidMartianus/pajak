@@ -147,7 +147,8 @@
                                 <i class="zmdi zmdi-tv-list dash-icon"></i>
                                 <span> IBK </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
-                                <li><a href="/searchIbk/index">Pencarian IBK</a></li>
+                                <!-- <li><a href="/searchIbk/index">Pencarian IBK</a></li> -->
+                                <li><a href="/ibk">Pencarian IBK</a></li>
                             </ul>
                         </li>
                         <li class="has_sub dash-menu">

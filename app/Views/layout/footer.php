@@ -54,16 +54,16 @@
 
     // Key Tables
 
-    $('#key-table').DataTable({
-        keys: true
-    });
+    // $('#key-table').DataTable({
+    //     keys: true
+    // });
 
-    // Multi Selection Datatable
-    $('#selection-datatable').DataTable({
-        select: {
-            style: 'multi'
-        }
-    });
+    // // Multi Selection Datatable
+    // $('#selection-datatable').DataTable({
+    //     select: {
+    //         style: 'multi'
+    //     }
+    // });
 
     table.buttons().container()
         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');

@@ -5,7 +5,7 @@
                 <div class="page-title-box">
                     <h4 class="page-title float-left" id="titlePage">Tambah data IBK</h4>
                     <ol class="breadcrumb float-right">
-                        <li class="breadcrumb-item"><a href="/searchIbk/index">Pencarian IBK</a></li>
+                        <li class="breadcrumb-item"><a href="/ibk">Pencarian IBK</a></li>
                         <li class="breadcrumb-item active">Input IBK</li>
                     </ol>
                     <div class="clearfix"></div>
@@ -33,37 +33,37 @@
                                     <div class="form-group row">
                                         <label for="tglSuratDjp" class="col-lg-4 col-form-label">Tanggal Surat DJP<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="tglSuratDjp" parsley-trigger="change" required placeholder="Tanggal Surat DJP" class="form-control tanggal" id="tglSuratDjp" autocomplete="off" data-date-end-date="0d">
+                                            <input type="text" name="tglSuratDjp" parsley-trigger="change" required placeholder="Tanggal Surat DJP" class="form-control tanggal inputData" id="tglSuratDjp" autocomplete="off" data-date-end-date="0d">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="tglSuratDispos" class="col-lg-4 col-form-label">Tanggal Surat Disposisi<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="tglSuratDispos" parsley-trigger="change" required placeholder="Tanggal Surat Disposisi" class="form-control tanggal" id="tglSuratDispos" autocomplete="off" onchange="dateHandler(event);" data-date-end-date="0d">
+                                            <input type="text" name="tglSuratDispos" parsley-trigger="change" required placeholder="Tanggal Surat Disposisi" class="form-control tanggal inputData" id="tglSuratDispos" autocomplete="off" onchange="dateHandler(event);" data-date-end-date="0d">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="noSuratDjp" class="col-lg-4 col-form-label">Nomor Surat DJP<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="noSuratDjp" parsley-trigger="change" required placeholder="Nomor Surat DJP" class="form-control surat" id="noSuratDjp" autocomplete="off">
+                                            <input type="text" name="noSuratDjp" parsley-trigger="change" required placeholder="Nomor Surat DJP" class="form-control surat inputData" id="noSuratDjp" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="noSuratKpp" class="col-lg-4 col-form-label">Nomor Surat KPP<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="noSuratKpp" parsley-trigger="change" required placeholder="Nomor Surat KPP" class="form-control surat" id="noSuratKpp" autocomplete="off">
+                                            <input type="text" name="noSuratKpp" parsley-trigger="change" required placeholder="Nomor Surat KPP" class="form-control surat inputData" id="noSuratKpp" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="alamat1" class="col-lg-4 col-form-label">Alamat 1<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="alamat1" parsley-trigger="change" required placeholder="Alamat 1" class="form-control" id="alamat1" autocomplete="off">
+                                            <input type="text" name="alamat1" parsley-trigger="change" required placeholder="Alamat 1" class="form-control inputData" id="alamat1" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="alamat2" class="col-lg-4 col-form-label">Alamat 2</label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="alamat2" parsley-trigger="change" placeholder="Alamat 2" class="form-control" id="alamat2" autocomplete="off">
+                                            <input type="text" name="alamat2" parsley-trigger="change" placeholder="Alamat 2" class="form-control inputData" id="alamat2" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -75,19 +75,19 @@
                                     <div class="form-group row">
                                         <label for="tglPeriksa" class="col-lg-4 col-form-label">Tanggal Pemeriksaan<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="tglPeriksa" parsley-trigger="change" alt="" required placeholder="Tanggal Pemeriksaan" class="form-control tanggal" id="tglPeriksa" onchange="dateHandler(event);" autocomplete="off" data-date-end-date="0d">
+                                            <input type="text" name="tglPeriksa" parsley-trigger="change" alt="" required placeholder="Tanggal Pemeriksaan" class="form-control tanggal inputData" id="tglPeriksa" onchange="dateHandler(event);" autocomplete="off" data-date-end-date="0d">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="sla" class="col-lg-4 col-form-label">SLA</label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="sla" parsley-trigger="change" placeholder="SLA" class="form-control" id="sla" value="" readonly>
+                                            <input type="text" name="sla" parsley-trigger="change" placeholder="SLA" class="form-control inputData" id="sla" value="" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="JnsKantorPjk" class="col-lg-4 col-form-label">Jenis Kantor Pajak<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
-                                            <select class="custom-select mb-3" class="form-control" id="JnsKantorPjk" name="JnsKantorPjk" required>
+                                            <select class="custom-select mb-3" class="form-control inputData" id="JnsKantorPjk" name="JnsKantorPjk" required>
                                                 <option value="" disabled selected>--Pilih Jenis Kantor Pajak--</option>
                                                 <option value="Kanwil">Kanwil</option>
                                                 <option value="Pratama">Pratama</option>
@@ -99,7 +99,7 @@
                                     <div class="form-group row">
                                         <label for="kantorPjk" class="col-lg-4 col-form-label">Kantor Pajak<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
-                                            <select class="form-control form-control-sm custom-select mb-3" id="kantorPjk" name="kantorPjk" required>
+                                            <select class="form-control form-control-sm custom-select mb-3 inputData" id="kantorPjk" name="kantorPjk" required>
                                             </select>
                                         </div>
                                     </div>
@@ -107,21 +107,21 @@
                                     <div class="form-group row">
                                         <label for="petugas" class="col-lg-4 col-form-label">Petugas</label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="petugas" parsley-trigger="change" placeholder="Petugas" class="form-control" id="petugas" value="JohnDoe" readonly>
+                                            <input type="text" name="petugas" parsley-trigger="change" placeholder="Petugas" class="form-control inputData" id="petugas" value="JohnDoe" readonly>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="nomorSuratJwb" class="col-lg-4 col-form-label">Nomor Surat Jawaban<span class="text-danger">*</span></label>
+                                        <label for="nomorSuratJwb" class="col-lg-4 col-form-label">Nomor Surat Jawaban<span class="text-danger inputData">*</span></label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="nomorSuratJwb" parsley-trigger="change" required placeholder="Nomor Surat Jawaban" class="form-control surat" id="nomorSuratJwb" autocomplete="off">
+                                            <input type="text" name="nomorSuratJwb" parsley-trigger="change" required placeholder="Nomor Surat Jawaban" class="form-control surat inputData" id="nomorSuratJwb" autocomplete="off">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="periode" class="col-lg-4 col-form-label">Periode yang diminta<span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
-                                            <input class="form-control input-daterange-datepicker" type="text" required name="daterange" value="" placeholder="Periode yang diminta" autocomplete="off">
+                                            <input class="form-control input-daterange-datepicker inputData" type="text" required name="daterange" value="" placeholder="Periode yang diminta" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -135,7 +135,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <br>
-                                    <button type="button" class="btn btn-light pull-left add-row" onclick="add('tambah')" data-target=".modal-lg"><i class="fa fa-plus"></i>&nbsp;&nbsp; Add Row</button>
+                                    <button type="button" class="btn btn-light pull-left add-row buttonTambah" onclick="add('tambah')" data-target=".modal-lg"><i class="fa fa-plus"></i>&nbsp;&nbsp; Add Row</button>
                                 </div>
                             </div>
                         </div>
@@ -177,15 +177,15 @@
                                     Print Surat DJP POST
                                 </a> -->
 
-                                <button class="btn btn-primary waves-effect waves-light" type="submit" id="printKpp" onclick="generateSurat('kpp')">
+                                <button class="btn btn-primary waves-effect waves-light" type="button" id="printKpp" onclick="generateSurat('kpp')">
                                     Print Surat KPP
                                 </button>
 
-                                <button class="btn btn-primary waves-effect waves-light" type="submit" id="printDirektorat" onclick="generateSurat('direktorat')">
+                                <button class="btn btn-primary waves-effect waves-light" type="button" id="printDirektorat" onclick="generateSurat('direktorat')">
                                     Print Surat Direktorat
                                 </button>
 
-                                <button class="btn btn-primary waves-effect waves-light" type="submit" id="printLampiran" onclick="generateSurat('lampiran')">
+                                <button class="btn btn-primary waves-effect waves-light" type="button" id="printLampiran" onclick="generateSurat('lampiran')">
                                     Print Lampiran
                                 </button>
                             </div>
@@ -194,7 +194,7 @@
                     <div class="row">
                         <div class="col-lg text-center">
                             <!--  -->
-                            <button type="button" class="btn btn-primary waves-effect m-l-5" onclick="saveIbk();">
+                            <button type="button" class="btn btn-primary waves-effect m-l-5 btnSimpan" onclick="saveIbk();">
                                 <!-- <button type="submit" class="btn btn-primary waves-effect m-l-5" formaction="<?= base_url('/InputIbk/save') ?>"> -->
                                 Simpan
                             </button>
@@ -394,9 +394,10 @@
         var modalTitle = $('#modalTitle');
         var btnSave = $('#btnSave');
         var count = 1;
+        var savedFlag;
 
         $(document).ready(function() {
-
+            savedFlag = 0;
             // tableData.DataTable({
             //     "processing": true,
             //     "serverSide": true,
@@ -409,18 +410,6 @@
             //         "target": [-1],
             //         "orderable": false
             //     }]
-            // });
-
-            // $("#printDjp").click(function() {
-            //     $.ajax({
-            //         'url': 'GenerateSurat/printSuratDjp', //URL of the request
-            //         'type': 'POST', //POST method
-            //         'success': function() { //execute when successful
-            //             console.log("masuk ajax")
-            //             // btnAdd.attr('disabled', 'true'); //disable the button
-            //             // btnAdd.val('sending ...'); //change the button text value
-            //         }
-            //     });
             // });
 
             $('#inputIbkTable').DataTable({
@@ -461,66 +450,18 @@
             var dataIbk = formHeader.serializeArray(); // convert form to array;
             var itemIbk = [];
             var status_insert;
+            var dataTbl = document.querySelectorAll('#tbodyIbk tr');
+            var keteranganFlag;
 
-            // console.log(dataIbk);
-
-            // var dataTbl = document.querySelectorAll('#tbodyIbk tr');
-            // var itemIbk = [{}];
-            // itemIbk.push({});
-
-            // for (let [index, tr] of dataTbl.entries()) {
-            //     var td = tr.getElementsByTagName('td');
-            //     // let td_array = Array.from(td); // convert HTMLCollection to an Array
-
-            //     // td_array = td_array.map(tag => tag.innerText); // get the text of each element
-            //     // itemIbk.push(td_array);
-
-            //     for (let j = 0; j < tr.childNodes.length - 1; j++) {
-            //         // addIbkArray(itemIbk, td_array.map(tag => tag.id), td_array.map(tag => tag.innerText));
-
-            //         // addIbkArray(itemIbk, document.getElementById('noSuratDjp').id, document.getElementById('noSuratDjp').value);
-            //         addIbkArray(itemIbk, tr.childNodes[j].id, tr.childNodes[j].innerHTML);
-            //         // itemIbk[index][document.getElementById('noSuratDjp').id] = document.getElementById('noSuratDjp').value;
-            //         // itemIbk[index][tr.childNodes[j].id] = tr.childNodes[j].innerHTML;
-            //     }
-            // }
-
-            // addIbkArray(dataIbk, "item", itemIbk);
-
-            // console.log(itemIbk);
-
-            // addIbkArray(itemIbk, "noSuratPjkTbl", document.getElementById('noSuratPjkTbl').innerHTML);
-            // addIbkArray(itemIbk, "tglSuratPjkTbl", document.getElementById('tglSuratPjkTbl').innerHTML);
-            // addIbkArray(itemIbk, "kantorPjkTbl", document.getElementById('kantorPjkTbl').innerHTML);
-            // addIbkArray(itemIbk, "nasabahTbl", document.getElementById('nasabahTbl').innerHTML);
-            // addIbkArray(itemIbk, "outletTbl", document.getElementById('outletTbl').innerHTML);
-            // addIbkArray(itemIbk, "nikTbl", document.getElementById('nikTbl').innerHTML);
-            // addIbkArray(itemIbk, "npwpTbl", document.getElementById('npwpTbl').innerHTML);
-            // addIbkArray(itemIbk, "tmptLahirTbl", document.getElementById('tmptLahirTbl').innerHTML);
-            // addIbkArray(itemIbk, "tglLahirTbl", document.getElementById('tglLahirTbl').innerHTML);
-            // addIbkArray(itemIbk, "keteranganTbl", document.getElementById('keteranganTbl').innerHTML);
-            // addIbkArray(itemIbk, "addKetPjkTbl", document.getElementById('addKetPjkTbl').innerHTML);
-
-            // console.log(header);
-            // var dataTbl = document.querySelectorAll('#tbodyIbk tr');
-            // for (let [index, tr] of dataTbl.entries()) {
-            //     // var td = tr.getElementsByTagName('td');
-            //     // let td_array = Array.from(td); // convert HTMLCollection to an Array
-
-            //     for (let j = 0; j < tr.childNodes.length - 1; j++) {
-            //         addIbkArray(itemIbk, document.getElementById('noSuratDjp').id, document.getElementById('noSuratDjp').value); //get DJP number from header
-
-            //         addIbkArray(itemIbk, tr.childNodes[j].id, tr.childNodes[j].innerHTML);
-
-            //         // td_id = td_array.map(tag => tag.id); // get the id of each element
-            //         // td_value = td_array.map(tag => tag.innerText); // get the text of each element
-
-            //     }
-
-
-
-            //     console.log(itemIbk);
-            // }
+            // check if all data on the table ibk tambah data already compared
+            if (dataTbl[0].childNodes[0].className != 'dataTables_empty') {
+                for (let [index, tr] of dataTbl.entries()) {
+                    if (tr.childNodes[9].innerHTML == '') {
+                        showMessage('error', 'Tambah Data IBK', 'Harap untuk melakukan compare data terlebih dahulu'); //show pop up message
+                        exit;
+                    }
+                }
+            }
 
             $.ajax({
                 type: "POST",
@@ -529,7 +470,7 @@
                 dataType: "JSON",
                 success: function(response) {
                     if (response.status == 1) { //success
-                        var dataTbl = document.querySelectorAll('#tbodyIbk tr');
+                        // var dataTbl = document.querySelectorAll('#tbodyIbk tr');
 
                         for (let [index, tr] of dataTbl.entries()) {
                             for (let j = 0; j < tr.childNodes.length - 1; j++) {
@@ -562,8 +503,15 @@
                         }
 
                         if (response.status == 1) {
+                            savedFlag = 1;
                             showMessage('success', 'Tambah Data IBK', 'Data berhasil ditambahkan'); //show pop up message
+
+                            // $('.inputData').prop('readonly', true);
+                            $('.buttonTambah').prop('disabled', true);
+                            $('.buttonTbl').prop('disabled', true);
+                            $('.btnSimpan').prop('disabled', true);
                         } else if (response.status == 0) {
+                            savedFlag = 0;
                             showMessage('error', 'Tambah Data IBK', 'Data gagal ditambahkan'); //show pop up message
                         }
                     } else { //failed
@@ -571,13 +519,14 @@
                         // looping to display mandatory field message
                         for (let i = 0; i < response.inputerror.length; i++) {
                             $('[name="' + response.inputerror[i] + '"]').addClass('is-invalid');
-                            $('[name="' + response.inputerror[i] + '"]').next().text(response.error_string[i]);
-                            showMessage('error', 'Tambah Data IBK', 'Harap isi field mandatory'); //show pop up message
+                            // $('[name="' + response.inputerror[i] + '"]').next().text(response.error_string[i]);
+                            // showMessage('error', 'Tambah Data IBK', 'Harap isi field mandatory'); //show pop up message
+                            showMessage('error', 'Tambah Data IBK', response.error_string[i]); //show pop up message
                         }
                     }
                 },
                 error: function() {
-                    showMessage('error', 'Server header Gangguan', 'silahkan ulangi kembali'); //show pop up message
+                    showMessage('error', 'Server Gangguan', 'silahkan ulangi kembali'); //show pop up message
                 }
             });
         }
@@ -593,9 +542,9 @@
                 timerProgressBar: true
             }).then(function() {
                 // redirect
-                if (icon == 'success') {
-                    window.location.href = "<?= site_url('/searchIbk/index'); ?>";
-                }
+                // if (icon == 'success') {
+                //     window.location.href = "<?= site_url('/searchIbk/index'); ?>";
+                // }
             });
         }
 
@@ -632,9 +581,9 @@
             if (saveData == 'tambah') {
                 // console.log('add');
                 tableData.DataTable().row.add([pajakNo, pajakDate, kantorPajak, nasabah, outlet, nik, npwp, tempatLahir, tanggalLahir, keterangan, addKeterangan,
-                    '<button type="button" title="edit" class="btn waves-effect waves-light btn-warning btn-sm col-sm" onclick="add(\'edit\')" style="margin: 2px"><i class="zmdi zmdi-edit"></i></button>' +
-                    '<button type="button" title="delete" class="btn waves-effect waves-light btn-danger btn-sm col-sm" onclick="deleteRow(event);" style="margin: 2px"><i class="zmdi zmdi-delete"></i></button>' +
-                    '<button type="button" title="compare" class="btn waves-effect waves-light btn-success btn-sm col-sm" onclick="compare(event)" style="margin: 2px"><i class="zmdi zmdi-compare"></i></button>'
+                    '<button type="button" title="edit" class="btn waves-effect waves-light btn-warning btn-sm col-sm buttonTbl" onclick="add(\'edit\')" style="margin: 2px"><i class="zmdi zmdi-edit"></i></button>' +
+                    '<button type="button" title="delete" class="btn waves-effect waves-light btn-danger btn-sm col-sm buttonTbl" onclick="deleteRow(event);" style="margin: 2px"><i class="zmdi zmdi-delete"></i></button>' +
+                    '<button type="button" title="compare" class="btn waves-effect waves-light btn-success btn-sm col-sm buttonTbl" onclick="compare(event)" style="margin: 2px"><i class="zmdi zmdi-compare"></i></button>'
                 ]).draw(false);
             } else {
                 var dataTbl = document.querySelectorAll('#tbodyIbk tr');
@@ -804,6 +753,10 @@
                 var diffInTime = new Date(checkDate).getTime() - new Date(disposDate).getTime();
                 var diffInDays = Math.ceil(diffInTime / (1000 * 3600 * 24));
 
+                if (diffInDays < 0) {
+                    diffInDays = 0;
+                }
+
                 document.getElementById("sla").value = diffInDays;
             }
         }
@@ -827,6 +780,8 @@
         document.getElementById("noSuratDjp").addEventListener("keypress", forceKeyPressUppercase, false);
         document.getElementById("noSuratKpp").addEventListener("keypress", forceKeyPressUppercase, false);
         document.getElementById("pajakNo").addEventListener("keypress", forceKeyPressUppercase, false);
+
+        // document.getElementById("noSuratDjp").addEventListener("keypress", validateDjp);
 
         // function to compare data
         function compare(e) {
@@ -885,37 +840,106 @@
             document.getElementById('npwpCompare').value = npwpTbl;
         }
 
+        // function validateDjp() {
+        //     var djpNo = document.getElementById("noSuratDjp").value;
+        //     var url_validate = "<?= base_url('inputIbk/_validationDjp'); ?>";
+
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: url_validate,
+        //         data: formHeader.serializeArray(),
+        //         dataType: 'json',
+        //         success: function(response) {
+        //             if (response.status === 'false') {
+        //                 // showMessage('error', 'Nomor DJP', response.error_string[0]); //show pop up message
+        //                 console.log(response.error_string[0]);
+        //             }
+        //         },
+        //         error: function(xhr, ajaxOptions, thrownError) {
+        //             alert(xhr.status + "\n" + xhr.responseText + "\n" +
+        //                 thrownError + "\n" + ajaxOptions);
+        //             // showMessage('error', thrownError, 'silahkan ulangi kembali'); //show pop up message
+        //         }
+        //     });
+        // }
+
         function generateSurat(tipe_surat) {
-            if (tipe_surat == 'djp') {
-                var url_print = "<?= base_url('/GenerateSurat/printSuratDjp'); ?>";
-            } else if (tipe_surat == 'kpp') {
-                var url_print = "<?= base_url('/GenerateSurat/printSuratKpp'); ?>";
-            } else if (tipe_surat == 'direktorat') {
-                var url_print = "<?= base_url('/GenerateSurat/printSuratDirektorat'); ?>";
-            } else if (tipe_surat == 'lampiran') {
-                var url_print = "<?= base_url('/GenerateSurat/printSuratLampiran'); ?>";
-            }
+            var dataSurat = [];
+            var header = formHeader.serializeArray(); // convert form to array;
+            var item = [];
+            var trs = document.querySelectorAll('#tbodyIbk tr');
 
-            // location.href = url_suratDjp;
+            var url_print = "<?= base_url('/GenerateSurat/printSuratIbk'); ?>";
+            var url_save_log = "<?= base_url('/GenerateSurat/saveSuratLog'); ?>";
 
-            $.ajax({
-                type: 'POST',
-                url: url_print,
-                data: formHeader.serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    var $a = $("<a>");
-                    $a.attr("href", response.file);
-                    $("body").append($a);
-                    $a.attr("download", response.fileName);
-                    $a[0].click();
-                    $a.remove();
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" +
-                        thrownError + "\n" + ajaxOptions);
-                    // showMessage('error', thrownError, 'silahkan ulangi kembali'); //show pop up message
+            if (tipe_surat == 'lampiran') {
+                for (let [index, tr] of trs.entries()) {
+                    $rowLen = index + 1;
+                    for (let j = 0; j < tr.childNodes.length - 1; j++) {
+                        addIbkArray(dataSurat, document.getElementById('noSuratDjp').id, document.getElementById('noSuratDjp').value); //get DJP number from header
+
+                        addIbkArray(dataSurat, tr.childNodes[j].id + index, tr.childNodes[j].innerHTML);
+                    }
                 }
-            });
+                // addIbkArray(dataSurat, 'item', item);
+                addIbkArray(dataSurat, 'tipeSurat', tipe_surat);
+                addIbkArray(dataSurat, 'reffcode', document.getElementById('reffcode').value);
+                addIbkArray(dataSurat, 'jumlahRow', $rowLen);
+            } else {
+                // addIbkArray(dataSurat, 'header', header);
+                // to get kantor pajak on table view
+
+                if (trs[0].childNodes[0].className == 'dataTables_empty') {
+                    showMessage('error', 'Gagal Print Surat', 'silahkan isi data surat pajak'); //show pop up message
+                } else {
+                    addIbkArray(header, trs[0].childNodes[2].id, trs[0].childNodes[2].innerHTML);
+                }
+
+                dataSurat = header;
+                addIbkArray(dataSurat, 'tipeSurat', tipe_surat);
+            }
+            addIbkArray(dataSurat, 'dataStatus', 'new');
+
+            if (savedFlag == 1) {
+                $.ajax({
+                    type: 'POST',
+                    url: url_print,
+                    data: $.param(dataSurat), //formHeader.serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        var $a = $("<a>");
+                        $a.attr("href", response.file);
+                        $("body").append($a);
+                        $a.attr("download", response.fileName);
+                        $a[0].click();
+                        $a.remove();
+
+                        console.log(response);
+
+                        // save data after print document
+                        $.ajax({
+                            type: 'POST',
+                            url: url_save_log,
+                            data: $.param(dataSurat),
+                            dataType: 'json',
+                            success: function(response) {
+
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                                    thrownError + "\n" + ajaxOptions);
+                                // showMessage('error', thrownError, 'silahkan ulangi kembali'); //show pop up message
+                            }
+                        });
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                            thrownError + "\n" + ajaxOptions);
+                        // showMessage('error', thrownError, 'silahkan ulangi kembali'); //show pop up message
+                    }
+                });
+            } else {
+                showMessage('error', 'Gagal Print Surat', 'silahkan simpan data terlebih dahulu'); //show pop up message
+            }
         }
     </script>
