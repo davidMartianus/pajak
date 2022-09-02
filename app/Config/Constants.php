@@ -92,3 +92,8 @@ define('EVENT_PRIORITY_NORMAL', 100);
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_HIGH instead.
  */
 define('EVENT_PRIORITY_HIGH', 10);
+
+
+define('POST_ID_DEV', 'id: BTNPROC');
+define('POST_KEY_DEV', 'key: i89T7Fsp2GJITP6qFRlpW9lXMftEpQXr');
+define('URL_API_DEV', 'http://172.16.3.198:6637/');

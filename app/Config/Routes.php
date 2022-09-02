@@ -37,11 +37,41 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
 
+//*====================routes input ibk====================*/
 $routes->get('/', 'Pages::index');
 $routes->get('/ibk', 'SearchIbk::index');
 $routes->get('/ibk/detail/(:segment)', 'SearchIbk::detailIbk/$1');
 $routes->get('/inputIbk', 'InputIbk::index');
 $routes->get('/generate', 'GenerateSurat::printSuratDjp');
+$routes->get('/auditLog', 'AuditLog::index');
+$routes->get('/kantorPajak', 'ParKantorPajak::index');
+
+//*====================routes input kantor cabang====================*/
+// $routes->get('/', 'Home::index');
+$routes->get('pages', 'Pages::index');
+$routes->get('login', 'Auth::index');
+$routes->get('block-list', 'BlockController::blockList');
+$routes->get('block-input/(:alphanum)', 'BlockController::blockInput/$1'); //$1 parameter yang masuk ke block input
+$routes->get('unblock-list', 'BlockController::unblockList');
+$routes->get('unblock-input/(:alphanum)', 'BlockController::unblockInput/$1');
+$routes->post('block-upload', 'BlockController::uploadBlockedDocuments');
+$routes->post('unblock-upload', 'BlockController::uploadUnblockedDocuments');
+
+$routes->get('block-approve-list', 'ApproveController::blockApproveList');
+$routes->match(['get', 'post'], 'block-approve-input/(:alphanum)', 'ApproveController::blockApproveinput/$1');
+$routes->get('unblock-approve-list', 'ApproveController::unblockApproveList');
+$routes->match(['get', 'post'], 'unblock-approve-input/(:alphanum)', 'ApproveController::unblockApproveinput/$1');
+
+$routes->get('unblock-history', 'HistoryController::unblockHistory');
+
+$routes->match(['post'], 'form-controller', 'FormController::index');
+
+//*====================routes input blokir====================*/
+$routes->get('/generate', 'NewBlokir::printSuratDjp');
+$routes->get('/baru', 'NewBlokir::halo');
+
+$routes->get('/blokir', 'NewBlokir::index');
+$routes->get('/inputBlokir', 'NewBlokir::menutama');
 
 /*
  * --------------------------------------------------------------------

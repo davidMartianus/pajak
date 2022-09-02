@@ -24,7 +24,7 @@ class IbkSuratModel extends Model
 
     public function getSuratDate($tipeSurat, $djp)
     {
-        $this->builder->select('todays_year', 'todays_month', 'todays_date',)->where('jenis_surat', $tipeSurat)->where('no_surat_djp', $djp);
+        $this->builder->select('todays_year, todays_month, todays_date',)->where('jenis_surat', $tipeSurat)->where('no_surat_djp', $djp);
         $query = $this->builder->get();
 
         return $query->getResult();

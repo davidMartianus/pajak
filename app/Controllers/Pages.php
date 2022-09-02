@@ -4,32 +4,61 @@ namespace App\Controllers;
 
 use App\Models\IbkModel;
 use App\Models\IbkDataModel;
+use App\Models\DataBlokirModel;
 
 use Config\Services;
 
 class Pages extends BaseController
 {
-    public $ibkModel;
+    protected $data_blokir;
 
     public function __construct()
     {
-        $this->ibkModel = new IbkModel();
+        $this->data_blokir = new DataBlokirModel();
     }
 
     public function index()
     {
+        $title = ['title' => 'Dashboard'];
+        echo view('layout/header', $title);
+
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            // 'totalTaxLetters' => $this->data_blokir->where('status_blokir', '')->countAllResults(),
+            // 'totalIBKLetters' => $this->data_blokir->where('status_blokir', '')->countAllResults(),
+            // 'totalBlockLetters' => $this->data_blokir->where('status_blokir', '')->countAllResults(),
+            'totalBlocked' => $this->data_blokir->where('status_blokir', 'Blocked')->countAllResults(),
+            'totalNotBlock' => $this->data_blokir->where('status_blokir', 'Pending Block')->orWhere('status_blokir', NULL)->countAllResults(),
+            'totalUnblocked' => $this->data_blokir->where('status_blokir', 'Unblocked')->countAllResults()
         ];
-
-        echo view('layout/header', $data);
-
-        echo view('pages/dashboard');
+        echo view('pages/dashboard', $data);
 
         echo view('layout/footer');
 
         // return view('pages/dashboard', $data);
     }
+
+    // public $ibkModel;
+
+    // public function __construct()
+    // {
+    //     $this->ibkModel = new IbkModel();
+    // }
+
+    // public function index()
+    // {
+    //     $data = [
+    //         'title' => 'Dashboard'
+    //     ];
+
+    //     echo view('layout/header', $data);
+
+    //     echo view('pages/dashboard');
+
+    //     echo view('layout/footer');
+
+    //     // return view('pages/dashboard', $data);
+    // }
 
     // public function searchIbk()
     // {

@@ -5,55 +5,40 @@ namespace App\Controllers;
 use App\Models\IbkModel;
 use App\Models\IbkDataModel;
 use App\Models\IbkItemModel;
+use App\Models\AuditLogModel;
 
 use Config\Services;
 
 class SearchIbk extends BaseController
 {
-    // protected $ibkModel;
-    // public function __construct()
-    // {
-    //     $this->ibkModel = new IbkModel();
-    // }
-
     public function __construct()
     {
         $request = Services::request();
         $this->ibkDataModel = new IbkDataModel($request);
         $this->ibkItemModel = new IbkItemModel($request);
+        $this->auditLogModel = new AuditLogModel($request);
     }
 
     public function index()
     {
+        $request = Services::request();
+        $AuditLogModel = new AuditLogModel($request);
+        // $username = $this->session->userdata('username');
+        $username = 'username';
+        $menu = 'Pencarian IBK';
+        $activity = 'View';
+        $AuditLogModel->tracing($username, $menu, $activity);
+
         $data = [
             'title' => 'Pencarian IBK'
         ];
 
         echo view('layout/header', $data);
 
-        echo view('pages/search_ibk');
+        echo view('input_ibk/search_ibk');
 
         echo view('layout/footer');
     }
-
-    // public function getData()
-    // {
-    //     if ($this->request->isAJAX()) {
-    //         $ibkList = new ibkModel;
-    //         $data =  [
-    //             'ibkLists' => $ibkList->findAll()
-    //         ];
-
-    //         $msg = [
-    //             'data' => view('pages/list_ibk', $data)
-    //             // 'data' => view('pages/search_ibk', $data)
-    //         ];
-
-    //         echo json_encode($msg);
-    //     } else {
-    //         exit('Maaf tidak dapat diproses');
-    //     }
-    // }
 
     public function listIbk()
     {
@@ -61,17 +46,7 @@ class SearchIbk extends BaseController
         $ibkDataModel = new IbkDataModel($request);
 
         if ($this->request->isAJAX()) {
-            //     $ibkList = new ibkModel;
-            // $data =  [
-            //     'ibkLists' => $ibkList->findAll()
-            // ];
-
-            // $msg = [
-            //     'data' => view('pages/list_ibk', $data)
-            // ];
-
             if ($request->getMethod(true) === 'POST') :
-                // if ($this->$request->getMethod() == 'POST') :
                 $ibkLists = $ibkDataModel->getDataTable();
                 $ibkRow = [];
                 $no = $request->getPost("start");
@@ -91,8 +66,6 @@ class SearchIbk extends BaseController
                     $periode_date = $periode_from . ' s.d ' . $periode_to;
 
                     $row[] = ++$no;
-                    // $row[] = $ibkList->id;
-                    // $row[] = $ibkList->reffcode;
                     $row[] = $ibkList->djp_no;
                     $row[] = $djp_date;
                     $row[] = $ibkList->kpp_no;
@@ -106,7 +79,7 @@ class SearchIbk extends BaseController
                     $row[] = $ibkList->petugas;
                     $row[] = $ibkList->surat_jwb_no;
                     $row[] = $periode_date;
-                    $row[] = '<a href="ibk/detail/' . $id . '" title="detail" class="btn waves-effect waves-light btn-info btn-sm col-sm" style="margin: 2px"><i class="zmdi zmdi-eye"></i></a>';
+                    $row[] = '<a href="ibk/detail/' . $id . '" title="detail" class="btn waves-effect waves-light btn-info btn-sm col-sm" style="margin: 2px; width: auto;"><i class="zmdi zmdi-eye"></i></a>';
                     $ibkRow[] = $row;
                 endforeach;
 
@@ -126,14 +99,14 @@ class SearchIbk extends BaseController
 
     public function detailIbk($id)
     {
-        // $ibkList = new ibkModel;
-        // d($header);
+        $request = Services::request();
+        $AuditLogModel = new AuditLogModel($request);
+        // // $username = $this->session->userdata('username');
+        // $username = 'username';
+        // $menu = 'Pencarian IBK/Detail IBK';
+        // $activity = 'View';
+        // $AuditLogModel->tracing($username, $menu, $activity);
 
-        // $item = $this->ibkItemModel->where(['djp_no' => $header['djp_no']])->findAll();
-        // dd($item);
-
-        // $request = Services::request();
-        // $ibkDataModel = new IbkDataModel($request);
         $data = [
             'title' => 'Detail IBK'
         ];
@@ -146,9 +119,15 @@ class SearchIbk extends BaseController
             'header' => $header,
             'items' => $item
         ];
-        echo view('pages/detail_ibk', $dataDetail);
+        echo view('input_ibk/detail_ibk', $dataDetail);
 
         echo view('layout/footer');
+
+        // $username = $this->session->userdata('username');
+        $username = 'username';
+        $menu = 'Pencarian IBK/Detail IBK' . '/No. DJP ' . $header['djp_no'];
+        $activity = 'View';
+        $AuditLogModel->tracing($username, $menu, $activity);
     }
 
     public function detailItemIbk()
@@ -178,18 +157,6 @@ class SearchIbk extends BaseController
                     $row[] = $item->keterangan;
                     $row[] = $item->add_keterangan;
 
-                    // $row[] = $item['surat_pajak'];
-                    // $row[] = $item['surat_pajak_date'];
-                    // $row[] = $item['kantor_pajak'];
-                    // $row[] = $item['nasabah'];
-                    // $row[] = $item['outlet'];
-                    // $row[] = $item['nik'];
-                    // $row[] = $item['npwp'];
-                    // $row[] = $item['tempat_lahir'];
-                    // $row[] = $item['tgl_lahir'];
-                    // $row[] = $item['keterangan'];
-                    // $row[] = $item['add_keterangan'];
-
                     $detailRow[] = $row;
                     $i++;
                 // $x = $item->surat_pajak;
@@ -199,10 +166,7 @@ class SearchIbk extends BaseController
                     "draw" => $request->getPost('draw'),
                     "recordsTotal" => $ibkItemModel->count_all_data(),
                     "recordsFiltered" => $ibkItemModel->count_filtered_data(),
-                    // "recordsTotal" => $count,
-                    // "recordsFiltered" => $count,
                     "data" => $detailRow
-                    // "item" => $x
                 );
 
                 echo json_encode($output);

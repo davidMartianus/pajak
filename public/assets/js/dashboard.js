@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".burger-menu").on("click", function () {
-        $(".logo").find('img').toggle();
-    });
+    // $(".burger-menu").on("click", function () {
+    //     $(".logo").find('img').toggle();
+    // });
 });

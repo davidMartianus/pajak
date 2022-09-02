@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Models\AuditLogMode;
 use App\Models\IbkModel;
 use App\Models\IbkDataModel;
 use App\Models\IbkItemModel;
+use App\Models\AuditLogModel;
 
 use Config\Services;
 
@@ -16,14 +18,34 @@ use CodeIgniter\HTTP\IncomingRequest;
 
 class InputIbk extends BaseController
 {
+    public function __construct()
+    {
+        $request = Services::request();
+        $this->ibkDataModel = new IbkDataModel($request);
+        $this->ibkItemModel = new IbkItemModel($request);
+        $this->auditLogModel = new AuditLogModel($request);
+    }
+
     public function index()
     {
+        $request = Services::request();
+        $AuditLogModel = new AuditLogModel($request);
+
+        // $username = $this->session->userdata('username');
+        $username = 'username';
+        $menu = 'Pencarian IBK/Input IBK';
+        $activity = 'Create';
+        $AuditLogModel->tracing($username, $menu, $activity);
+
+        // $this->load->model('AuditLogModel');
+        // $this->AuditLogModel->tracing($username, $menu, $activity);
+
         $data = [
             'title' => 'Dashboard'
         ];
         echo view('layout/header', $data);
 
-        echo view('pages/input_ibk');
+        echo view('input_ibk/input_ibk');
 
         echo view('layout/footer');
     }
@@ -31,12 +53,7 @@ class InputIbk extends BaseController
     // protected $ibkModel;
     // protected $request;
 
-    public function __construct()
-    {
-        $request = Services::request();
-        $this->ibkDataModel = new IbkDataModel($request);
-        $this->ibkItemModel = new IbkItemModel($request);
-    }
+
 
     // // $ibk = $this->ibkModel->findAll();
 
@@ -116,6 +133,9 @@ class InputIbk extends BaseController
 
     public function save_item()
     {
+        $request = Services::request();
+        $AuditLogModel = new AuditLogModel($request);
+
         // $this->_validation();
         // $currentYear = date('Y');
         $created_at = (new \CodeIgniter\I18n\Time("now", "Asia/Jakarta", "de_DE"));
@@ -144,6 +164,12 @@ class InputIbk extends BaseController
         } else {
             $message = array('status' => 0, 'message' => 'failed', 'item' => $item);
         }
+
+        $username = 'username';
+        $menu = 'Pencarian IBK/Input IBK';
+        $activity = 'Create/Save';
+        $AuditLogModel->tracing($username, $menu, $activity);
+
         echo json_encode($message);
     }
 
@@ -190,6 +216,7 @@ class InputIbk extends BaseController
             $data['inputerror'][] = 'noSuratDjp';
             $data['error_string'][] = 'Nomor Surat DJP ' . $this->request->getPost('noSuratDjp') . ' tahun ' . $currentYear . ' sudah terdaftar';
             $data['status'] = false;
+            $data['djpCheck'] = 1;
             echo json_encode($data);
             exit();
         }
@@ -201,6 +228,7 @@ class InputIbk extends BaseController
         $data['error_string'] = array();
         $data['inputerror'] = array();
         $data['status'] = true;
+        $data['djpCheck'] = 0;
 
         if ($this->request->getPost('noSuratDjp') == '') {
             $data['inputerror'][] = 'noSuratDjp';

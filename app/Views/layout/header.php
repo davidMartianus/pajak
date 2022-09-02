@@ -28,6 +28,9 @@
     <!-- App CSS -->
     <link href="<?php base_url() ?> /assets/css/style.css" rel="stylesheet" type="text/css" />
 
+    <!-- wizard baru kali -->
+    <link href="<?php base_url() ?>/assets/css/wizard_baru.css" rel="stylesheet" type="text/css" />
+
     <!-- user defined css -->
     <link href="<?php base_url() ?> /assets/css/dashboard.css" rel="stylesheet" type="text/css" />
     <link href="<?php base_url() ?> /assets/css/search_ibk.css" rel="stylesheet" type="text/css" />
@@ -91,9 +94,15 @@
             <!-- LOGO -->
             <div class="topbar-left">
                 <a href="/" class="logo">
-                    <img src="/assets/images/Bank_BTN_logo.svg" alt="Logo" id="img-big" />
+                    <img src="/assets/images/btn-logo-small-4.png" alt="Logo" class="img-fluid" id="img-small">
+                    <!-- <img src="/assets/images/btn-logo-small.png" alt="Logo" class="img-fluid" id="img-small" /> -->
+                    <!-- <i class="zmdi zmdi-group-work icon-c-logo"></i> -->
+                    <span>Web Pajak</span>
+                    <!-- <img src="/assets/images/btn-logo-1.png" alt="Logo" class="img-fluid" id="img-small"> -->
+                    <!-- <span><img src="/assets/images/btn-logo-2.png" alt="Logo" id="img-big"></span> -->
+                    <!-- <img src="/assets/images/Bank_BTN_logo.svg" alt="Logo" id="img-big" /> -->
                     <!-- style="display: none" -->
-                    <img src="/assets/images/btn-logo-small.png" alt="Logo" class="img-fluid" id="img-small" />
+                    <!-- <img src="/assets/images/btn-logo-small.png" alt="Logo" class="img-fluid" id="img-small" /> -->
                 </a>
             </div>
 
@@ -151,18 +160,57 @@
                                 <li><a href="/ibk">Pencarian IBK</a></li>
                             </ul>
                         </li>
+
                         <li class="has_sub dash-menu">
                             <a href="javascript:void(0);" class="waves-effect">
                                 <i class="zmdi zmdi-assignment-alert dash-icon"></i>
                                 <span> Blokir </span> <span class="menu-arrow"></span></a>
+
                             <ul class="list-unstyled">
-                                <li><a href="<?= base_url() ?>#">Pengajuan Blokir</a></li>
-                                <li><a href="<?= base_url() ?>#">Pengajuan Cabut Blokir</a></li>
-                                <li><a href="<?= base_url() ?>#">Input Pemblokiran</a></li>
-                                <li><a href="<?= base_url() ?>#">Input Cabut Blokir</a></li>
-                                <li><a href="<?= base_url() ?>#">Validasi Pemblokiran</a></li>
-                                <li><a href="<?= base_url() ?>#">Validasi Cabut Blokir</a></li>
+                                <li class="has_sub dash-menu">
+                                    <a href="javascript:void(0);" class="waves-effect">
+                                        <i class="fa fa-circle-o"></i>
+                                        <span> Blokir </span> <span class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="/blokir">Pengajuan Blokir</a></li>
+                                        <li><a href="<?= base_url("/block-list") ?>">Input Blokir</a></li>
+                                        <li><a href="<?= base_url("/block-approve-list") ?>">Validasi Blokir</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="has_sub dash-menu">
+                                    <a href="javascript:void(0);" class="waves-effect">
+                                        <i class="fa fa-circle-o"></i>
+                                        <span> Cabut Blokir </span> <span class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="<?= base_url() ?>#">Pengajuan Cabut Blokir</a></li>
+                                        <li><a href="<?= base_url("/unblock-list") ?>">Input Cabut Blokir</a></li>
+                                        <li><a href="<?= base_url("/unblock-approve-list") ?>">Validasi Cabut Blokir</a></li>
+                                        <li><a href="<?= base_url("/unblock-history") ?>">Riwayat Cabut Blokir</a></li>
+                                    </ul>
+                                </li>
                             </ul>
+                        </li>
+
+                        <li class="has_sub dash-menu">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="zmdi zmdi-settings dash-icon"></i>
+                                <span> Paramter </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="/kantorPajak">Kantor Pajak</a></li>
+                                <li><a href="<?= base_url() ?>#">Parameter2</a></li>
+                                <li><a href="<?= base_url() ?>#">Parameter3</a></li>
+                                <li><a href="<?= base_url() ?>#">Parameter4</a></li>
+                                <li><a href="<?= base_url() ?>#">Parameter5</a></li>
+                                <li><a href="<?= base_url() ?>#">Parameter6</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has_sub dash-menu">
+                            <a href="<?= base_url() . "/auditLog" ?>" class="waves-effect">
+                                <i class="zmdi zmdi-search-for dash-icon"></i>
+                                <span> Audit Log </span>
+                            </a>
                         </li>
                     </ul>
                     <div class="clearfix"></div>

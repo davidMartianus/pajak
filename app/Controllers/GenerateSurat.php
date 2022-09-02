@@ -6,25 +6,79 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use \PhpOffice\PhpWord\TemplateProcessor;
 use App\Models\IbkSuratModel;
+use App\Models\AuditLogModel;
+
+use Config\Services;
+
+use CodeIgniter\HTTP\IncomingRequest;
+
+/**
+ * @property IncomingRequest $request
+ */
 
 class GenerateSurat extends BaseController
 {
     public function __construct()
     {
+        $request = Services::request();
         $this->ibkSuratModel = new IbkSuratModel();
+        $this->auditLogModel = new AuditLogModel($request);
     }
 
     public function printSuratIbk()
     {
+        $request = Services::request();
+        $AuditLogModel = new AuditLogModel($request);
+
+
         $ibkSuratModel = new IbkSuratModel();
         $dataSurat = $this->request->getVar();
 
-        if ($dataSurat['dataStatus'] === 'new') {
-            $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
+        // $username = $this->session->userdata('username');
+        $username = 'username';
+        $menu = 'Pencarian IBK/Print Surat';
+        $activity = 'Print Surat ' . $dataSurat['tipeSurat'] . 'No. DJP ' . strtoupper($dataSurat['noSuratDjp']);
+        $AuditLogModel->tracing($username, $menu, $activity);
+
+        $suratDate = $ibkSuratModel->getSuratDate($dataSurat['tipeSurat'], $dataSurat['noSuratDjp']);
+        if ($suratDate) {
+            $todaysdate = $suratDate[0]->todays_date;
+            $todaysmonth = $suratDate[0]->todays_month;
+            $todaysyear = $suratDate[0]->todays_year;
+            $saveFlag = 0;
         } else {
-            $suratDate[] = $ibkSuratModel->getSuratDate($dataSurat['tipeSurat'], $dataSurat['noSuratDjp']);
-            $todaysdate = $this->tanggal_indonesia($suratDate);
+            $getDate = date(new \CodeIgniter\I18n\Time("now", "Asia/Jakarta", "de_DE"));
+            $dateFormat = explode(' ', $getDate);
+            $todaysdate = $this->tanggal_indonesia($dateFormat[0]);
+            // $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
+            $todaysmonth = date('m');
+            $todaysyear = date('Y');
+            $saveFlag = 1;
         }
+
+        // if ($dataSurat['dataStatus'] === 'new') {
+        //     // $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
+        //     if ($suratDate) {
+        //         $todaysdate = $suratDate[0]->todays_date;
+        //         $todaysmonth = $suratDate[0]->todays_month;
+        //         $todaysuyear = $suratDate[0]->todays_year;
+        //     } else {
+        //         $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
+        //         $todaysmonth = date('m');
+        //         $todaysuyear = date('Y');
+        //     }
+        // } else {
+        //     if ($suratDate) {
+        //         $todaysdate = $suratDate[0]->todays_date;
+        //         $todaysmonth = $suratDate[0]->todays_month;
+        //         $todaysuyear = $suratDate[0]->todays_year;
+        //     } else {
+        //         $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
+        //         $todaysmonth = date('m');
+        //         $todaysuyear = date('Y');
+        //     }
+        // }
+        // $todaysdate = $this->tanggal_indonesia(date('Y-m-d'));
 
         $phpWord = new PhpWord();
         $fileTemplate = 'template_' . $this->request->getVar('tipeSurat') . '.docx';
@@ -38,8 +92,8 @@ class GenerateSurat extends BaseController
         if ($dataSurat['tipeSurat'] == 'lampiran') {
             $templatedjp->setValues([
                 'reffcode' => $this->request->getVar('reffcode'),
-                'todaysmonth' => date('m'),
-                'todaysyear' => date('Y'),
+                'todaysmonth' => $todaysmonth,
+                'todaysyear' => $todaysyear,
             ]);
 
             $values = [];
@@ -75,8 +129,12 @@ class GenerateSurat extends BaseController
 
             $templatedjp->setValues([
                 'reffcode' => $this->request->getVar('reffcode'),
-                'todaysmonth' => date('m'),
-                'todaysyear' => date('Y'),
+                'todaysmonth' => $todaysmonth,
+                'todaysyear' => $todaysyear,
+
+                // 'todaysmonth' => date('m'),
+                // 'todaysyear' => date('Y'),
+
                 'todaysdate' => $todaysdate, //e.g 10 March, 2022
                 'alamat1' => $this->request->getVar('alamat1'),
                 'alamat2' => $this->request->getVar('alamat2'),
@@ -113,7 +171,7 @@ class GenerateSurat extends BaseController
 
         $response = array(
             'file' => "data:application/vnd.ms-word;base64," . base64_encode($docFile),
-            'op' => 'ok', 'fileName' => $filename, 'data' => $todaysdate
+            'op' => 'ok', 'fileName' => $filename, 'data' => $todaysdate, 'save' => $saveFlag
         );
         die(json_encode($response));
     }

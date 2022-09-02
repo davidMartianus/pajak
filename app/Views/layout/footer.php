@@ -16,6 +16,13 @@
 <script src='<?php base_url() ?> /plugins/fullcalendar/js/fullcalendar.min.js'></script>
 <script src="<?php base_url() ?> /assets/pages/jquery.fullcalendar.js"></script>
 
+<!--Form Wizard-->
+<script src="<?php base_url() ?> /plugins/jquery.steps/build/jquery.steps.min.js"></script>
+<script src="<?php base_url() ?> /plugins/jquery-validation/jquery.validate.min.js"></script>
+
+<!--wizard initialization-->
+<script src="<?php base_url() ?> /assets/pages/jquery.wizard-init.js"></script>
+
 <!-- App js -->
 <script src="<?php base_url() ?> /assets/js/jquery.core.js"></script>
 <script src="<?php base_url() ?> /assets/js/jquery.app.js"></script>
@@ -147,6 +154,7 @@
     }
 
     $(document).ready(function() {
+        
         dataKantorPajak();
         inputKantorPajak();
     });

@@ -14,9 +14,9 @@
 }
 
 @media screen and (min-width: 1042px) {
-  #img-small {
+  /* #img-small {
     display: none;
-  }
+  } */
 
   #img-big {
     display: inherit;
